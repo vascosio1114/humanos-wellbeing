@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { AIChatWidget } from "@/components/humanos/ai-chat-widget";
 import { I18nProvider } from "@/lib/i18n";
 import "./globals.css";
 
@@ -9,7 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://humanos.ai"),
+  metadataBase: new URL("https://humanos-wellbeing.vercel.app"),
   title: "HumanOS | AI Wellbeing Intelligence Platform",
   description:
     "HumanOS helps schools and high-pressure organizations turn stress signals into early support through private wellbeing check-ins, AI daily support plans, and anonymized institutional dashboards.",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     title: "HumanOS | AI Wellbeing Intelligence Platform",
     description:
       "Turn stress signals into early support with AI-guided daily plans and anonymized wellbeing dashboards for schools and organizations.",
-    url: "https://humanos.ai",
+    url: "https://humanos-wellbeing.vercel.app",
     siteName: "HumanOS",
     images: [
       {
@@ -71,7 +72,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased">
-        <I18nProvider>{children}</I18nProvider>
+        <I18nProvider>
+          {children}
+          <AIChatWidget />
+        </I18nProvider>
       </body>
     </html>
   );
