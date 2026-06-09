@@ -7,12 +7,12 @@ import { useI18n, type Locale } from "@/lib/i18n";
 export function Navbar() {
   const { locale, setLocale, t } = useI18n();
   const navItems = [
+    ["Agent", "/agent"],
+    ["AI Dashboard", "/ai-dashboard"],
+    ["B2C", "/b2c"],
+    ["B2B", "/b2b"],
     [t.nav.product, "/demo"],
-    [t.nav.students, "/students"],
-    [t.nav.organizations, "/organizations"],
-    [t.nav.pilot, "/pilot"],
     [t.nav.privacy, "/privacy"],
-    [t.nav.technology, "/technology"],
   ];
 
   return (
@@ -29,7 +29,7 @@ export function Navbar() {
             </span>
           </span>
         </Link>
-        <div className="hidden items-center gap-6 text-sm font-medium text-[#6e6e73] md:flex">
+        <div className="hidden items-center gap-4 text-xs font-medium text-[#6e6e73] md:flex lg:gap-6 lg:text-sm">
           {navItems.map(([label, href]) => (
             <Link key={href} href={href} className="transition hover:text-[#007aff]">
               {label}

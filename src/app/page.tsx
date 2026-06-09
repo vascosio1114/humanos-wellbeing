@@ -11,7 +11,6 @@ import {
   ChevronDown,
   HeartPulse,
   Layers3,
-  LockKeyhole,
   Moon,
   Plug,
   Rocket,
@@ -33,9 +32,42 @@ const healthSignals = [
 ] as const;
 
 const supportCards = [
-  { icon: School, href: "/students", label: "Students", tone: "bg-[#eaf5ff] text-[#007aff]" },
-  { icon: BriefcaseBusiness, href: "/organizations", label: "Organizations", tone: "bg-[#eefcf3] text-[#248a3d]" },
-  { icon: LockKeyhole, href: "/privacy", label: "Privacy", tone: "bg-[#fff4df] text-[#b25000]" },
+  {
+    icon: Sparkles,
+    href: "/agent",
+    label: "AI Agent",
+    labelZh: "AI 智能體",
+    body: "A Duolingo-style daily coach with quests, streaks, XP, and private AI guidance.",
+    bodyZh: "像 Duolingo 的每日教練，有任務、streak、XP 和私人 AI 指引。",
+    tone: "bg-[#eaf5ff] text-[#007aff]",
+  },
+  {
+    icon: Brain,
+    href: "/ai-dashboard",
+    label: "AI Dashboard",
+    labelZh: "AI Dashboard",
+    body: "An institutional dashboard that turns anonymous wellbeing trends into recommended actions.",
+    bodyZh: "給機構使用的 dashboard，將匿名 wellbeing 趨勢變成建議行動。",
+    tone: "bg-[#f4ecff] text-[#7d35ff]",
+  },
+  {
+    icon: School,
+    href: "/b2c",
+    label: "B2C",
+    labelZh: "B2C",
+    body: "A private wellbeing companion for students and individual users.",
+    bodyZh: "給學生和個人用戶的私人 wellbeing 伙伴。",
+    tone: "bg-[#fff4df] text-[#b25000]",
+  },
+  {
+    icon: BriefcaseBusiness,
+    href: "/b2b",
+    label: "B2B",
+    labelZh: "B2B",
+    body: "Wellbeing intelligence for schools, HR teams, hotels, and organizations.",
+    bodyZh: "給學校、HR、酒店和機構使用的 wellbeing intelligence。",
+    tone: "bg-[#eefcf3] text-[#248a3d]",
+  },
 ] as const;
 
 const intelligenceComparisons = [
@@ -261,8 +293,8 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {supportCards.map(({ icon: Icon, href, label, tone }, index) => (
+          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            {supportCards.map(({ icon: Icon, href, label, labelZh, body, bodyZh, tone }, index) => (
               <Link
                 key={href}
                 href={href}
@@ -273,13 +305,11 @@ export default function HomePage() {
                 <div className={`grid size-14 place-items-center rounded-3xl ${tone}`}>
                   <Icon className="size-7" aria-hidden="true" />
                 </div>
-                <h3 className="mt-8 text-3xl font-semibold tracking-normal text-[#1d1d1f]">{label}</h3>
+                <h3 className="mt-8 text-3xl font-semibold tracking-normal text-[#1d1d1f]">
+                  {locale === "zh" ? labelZh : label}
+                </h3>
                 <p className="mt-4 min-h-24 text-base leading-7 text-[#6e6e73]">
-                  {href === "/students"
-                    ? t.students.headline
-                    : href === "/organizations"
-                      ? t.organizations.headline
-                      : t.home.privacyBody}
+                  {locale === "zh" ? bodyZh : body}
                 </p>
                 <span className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#007aff]">
                   {locale === "zh" ? "進一步了解" : "Learn more"}
