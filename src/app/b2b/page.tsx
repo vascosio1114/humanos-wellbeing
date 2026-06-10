@@ -7,48 +7,91 @@ import {
   BellRing,
   BriefcaseBusiness,
   Building2,
-  LineChart,
+  CheckCircle2,
+  FileText,
   ShieldCheck,
   UsersRound,
 } from "lucide-react";
 import { Footer, Navbar } from "@/components/humanos/layout";
 import { useI18n } from "@/lib/i18n";
 
-const b2bProblems = [
-  ["Stress and burnout usually become visible only after absence, turnover, or performance issues.", "壓力和 burnout 通常到缺勤、離職或表現問題出現後先被看見。"],
-  ["Quarterly surveys are too slow for shift-based teams and high-pressure departments.", "季度問卷對輪班團隊和高壓部門太慢，追不到變化。"],
-  ["HR teams need anonymous patterns, not private employee conversations.", "HR 需要匿名趨勢，不是員工的私人對話內容。"],
-  ["Wellbeing budgets need clearer evidence of which campaigns actually help.", "Wellbeing 預算需要更清楚證據，知道哪些活動真正有幫助。"],
+const problems = [
+  {
+    en: "Schools, hotels, resorts, and service teams usually see stress only after absence, turnover, complaints, or performance decline.",
+    zh: "學校、酒店、綜合度假村及服務團隊，通常要等到缺勤、流失、投訴或表現下降先見到壓力問題。",
+  },
+  {
+    en: "Annual or quarterly surveys are too slow for shift work, exam periods, customer-facing teams, and high-pressure departments.",
+    zh: "年度或季度問卷太慢，未必追得上輪班、考試季、前線服務及高壓部門嘅狀態變化。",
+  },
+  {
+    en: "Existing wellness benefits are hard to allocate because leaders do not know which groups need what kind of support.",
+    zh: "現有員工福利或學生支援難以分配，因為管理者唔清楚邊個群組最需要邊種支援。",
+  },
+  {
+    en: "Trust breaks if wellbeing technology feels like surveillance, so institutional insight must be anonymous-first.",
+    zh: "如果 wellbeing 科技令人覺得被監控，信任會即刻下降，所以機構洞察必須匿名優先。",
+  },
 ];
 
-const b2bModules = [
+const modules = [
   {
     icon: BarChart3,
-    title: "Anonymous Workforce Dashboard",
-    titleZh: "匿名員工 Dashboard",
-    body: "See stress, sleep, focus, energy, and participation trends by department, shift, or cohort while protecting individual privacy.",
-    bodyZh: "按部門、輪班或群組查看壓力、睡眠、專注、能量和參與率，同時保護個人私隱。",
+    en: "Anonymous Institution Dashboard",
+    zh: "匿名機構儀表板",
+    bodyEn: "Stress, sleep, focus, workload, mood, attendance, participation, and recovery trends by cohort, team, shift, or department.",
+    bodyZh: "按班級、團隊、輪班或部門查看壓力、睡眠、專注、工作量、情緒、出席、參與率及恢復趨勢。",
   },
   {
     icon: BellRing,
-    title: "Early Support Signals",
-    titleZh: "早期支援訊號",
-    body: "Spot group-level declines before they become incidents, and route teams toward practical recovery actions.",
-    bodyZh: "在問題變成事故前，看見群組層面的下跌，並引導團隊做實際恢復行動。",
+    en: "Early Support Intelligence",
+    zh: "早期支援智能",
+    bodyEn: "HumanOS detects patterns before they become incidents, then recommends practical actions such as campaigns, workshops, or referrals.",
+    bodyZh: "HumanOS 會喺問題變成事故前偵測趨勢，再建議可執行行動，例如活動、工作坊或專業轉介。",
   },
   {
-    icon: LineChart,
-    title: "Campaign Impact Reports",
-    titleZh: "活動成效報告",
-    body: "Measure whether wellbeing campaigns improve participation, recovery, stress trends, and engagement.",
-    bodyZh: "量度 wellbeing 活動是否改善參與率、恢復、壓力趨勢和投入度。",
+    icon: FileText,
+    en: "Monthly Management Report",
+    zh: "每月管理報告",
+    bodyEn: "Summarize trend changes, campaign impact, priority groups, privacy-safe evidence, and next-month support planning.",
+    bodyZh: "總結趨勢變化、活動成效、優先支援群組、私隱安全證據，以及下月支援建議。",
   },
 ];
 
-const b2bSteps = [
-  ["Month 1", "第 1 個月", "Set up teams, privacy thresholds, and baseline check-ins.", "設定團隊、私隱門檻和 baseline check-in。"],
-  ["Month 2", "第 2 個月", "Run targeted support campaigns for stress, sleep, recovery, and focus.", "針對壓力、睡眠、恢復和專注推出支援活動。"],
-  ["Month 3", "第 3 個月", "Deliver an intelligence report with trends, impact, and rollout recommendations.", "交付包含趨勢、成效和 rollout 建議的 intelligence report。"],
+const pilotSteps = [
+  {
+    en: "Weeks 1-2",
+    zh: "第 1-2 週",
+    bodyEn: "Needs interviews, consent flow, privacy documents, baseline questionnaire, account setup, and team grouping.",
+    bodyZh: "完成需求訪談、同意流程、私隱文件、baseline 問卷、帳戶設定及群組分類。",
+  },
+  {
+    en: "Month 2",
+    zh: "第 2 個月",
+    bodyEn: "Launch personal AI plans, weekly check-ins, one workshop, light-touch campaigns, and optional 15-minute support consults.",
+    bodyZh: "推出個人 AI 計劃、每週 check-in、一場工作坊、低壓支援活動，以及可選 15 分鐘支援諮詢。",
+  },
+  {
+    en: "Month 3",
+    zh: "第 3 個月",
+    bodyEn: "Evaluate anonymous trends, campaign outcomes, management feedback, user feedback, and renewal or expansion intent.",
+    bodyZh: "評估匿名趨勢、活動成效、管理層回饋、用戶回饋，以及續約或擴展意向。",
+  },
+];
+
+const prices = [
+  ["Pilot package", "MOP 38,000-88,000", "3-month school, hotel, enterprise department, or public-sector pilot", "3 個月學校、酒店、企業部門或公共機構試點"],
+  ["Standard institution", "MOP 25-45 / user / month", "For 100-1,000 users with dashboard and monthly reporting", "適合 100-1,000 人，包含 dashboard 及每月報告"],
+  ["Institution professional", "MOP 120,000-360,000 / year", "Annual package with professional support network and deeper implementation", "年度方案，加入專業支援網絡及更深入落地服務"],
+  ["White-label / custom", "Custom", "For platforms, large groups, IoT, health kiosk, or API integration", "適合平台、大型集團、IoT、健康 kiosk 或 API 整合"],
+] as const;
+
+const kpis = [
+  ["Activation", "啟用率"],
+  ["Weekly active check-ins", "每週活躍 check-in"],
+  ["AI plan completion >=40%", "AI 計劃完成率 >=40%"],
+  ["Anonymous dashboard usefulness", "匿名 dashboard 有用程度"],
+  ["Paid renewal or expansion intent", "付費續約或擴展意向"],
 ];
 
 export default function B2BPage() {
@@ -60,59 +103,50 @@ export default function B2BPage() {
       <Navbar />
 
       <section className="bg-white">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:px-8 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-8 lg:py-24">
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-[#eefcf3] px-4 py-2 text-sm font-semibold text-[#248a3d] ring-1 ring-black/5">
               <BriefcaseBusiness className="size-4" aria-hidden="true" />
               HumanOS B2B
             </p>
             <h1 className="mt-6 text-[clamp(3rem,7vw,6.8rem)] font-semibold leading-[0.94] tracking-normal">
-              {isZh ? "給機構使用的 wellbeing intelligence。" : "Wellbeing intelligence for organizations."}
+              {isZh ? "面向機構嘅福祉智能平台。" : "Wellbeing intelligence for institutions."}
             </h1>
             <p className="mt-7 max-w-2xl text-xl leading-9 text-[#6e6e73]">
               {isZh
-                ? "B2B HumanOS 為學校、HR 團隊、酒店、度假村和大型服務機構而設，提供匿名員工洞察、早期支援訊號和可量度的 wellbeing program。"
-                : "B2B HumanOS is built for schools, HR teams, hotels, resorts, and large service organizations that need anonymous workforce insight, early support signals, and measurable wellbeing programs."}
+                ? "HumanOS 以 B2B 優先，幫學校、企業、酒店、綜合度假村及公共機構，將日常健康訊號變成早期風險趨勢、個人化支援計劃、匿名團隊洞察及資源配置建議。"
+                : "HumanOS is B2B-first: helping schools, enterprises, hotels, resorts, and public institutions turn daily wellbeing signals into early risk trends, personal support plans, anonymous team insight, and resource allocation recommendations."}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#007aff] px-6 py-3.5 text-base font-semibold text-white shadow-[0_18px_40px_rgba(0,122,255,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0066d6] focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2"
-              >
-                {isZh ? "開始 B2B pilot" : "Start B2B pilot"}
+              <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#007aff] px-6 py-3.5 text-base font-semibold text-white shadow-[0_18px_40px_rgba(0,122,255,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0066d6]">
+                {isZh ? "啟動 B2B pilot" : "Start B2B pilot"}
                 <ArrowRight className="size-5" aria-hidden="true" />
               </Link>
-              <Link
-                href="/organizations"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f5f5f7] px-6 py-3.5 text-base font-semibold text-[#1d1d1f] ring-1 ring-black/5 transition hover:bg-white hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2"
-              >
-                {isZh ? "查看機構 demo" : "View organization demo"}
+              <Link href="/ai-dashboard" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f5f5f7] px-6 py-3.5 text-base font-semibold text-[#1d1d1f] ring-1 ring-black/5 transition hover:bg-white hover:shadow-md">
+                {isZh ? "查看 AI Dashboard" : "View AI dashboard"}
               </Link>
             </div>
           </div>
 
           <div className="rounded-[2rem] bg-[#1d1d1f] p-5 text-white shadow-[0_30px_90px_rgba(0,0,0,0.18)]">
             <div className="rounded-[1.5rem] bg-white/[0.08] p-5 ring-1 ring-white/10">
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm font-semibold text-white/58">{isZh ? "企業訊號層" : "Enterprise signal layer"}</p>
+                  <p className="text-sm font-semibold text-white/58">{isZh ? "核心流程" : "Core operating loop"}</p>
                   <p className="mt-3 text-4xl font-semibold leading-tight">
-                    {isZh ? "私人資料進來，匿名洞察出去。" : "Private data in. Anonymous intelligence out."}
+                    {isZh ? "監測 → 預測 → 規劃 → 介入 → 評估" : "Monitor → Predict → Plan → Intervene → Evaluate"}
                   </p>
                 </div>
                 <Building2 className="size-12 text-[#5ac8fa]" aria-hidden="true" />
               </div>
             </div>
             <div className="mt-4 grid gap-3 sm:grid-cols-2">
-              {[
-                ["Departments", "部門", "compare trends safely", "安全比較趨勢"],
-                ["Shift teams", "輪班團隊", "track recovery pressure", "追蹤恢復壓力"],
-                ["Campaigns", "活動", "measure real movement", "量度真實變化"],
-                ["Leaders", "管理者", "act before escalation", "在升級前行動"],
-              ].map(([title, titleZh, body, bodyZh]) => (
-                <div key={title} className="rounded-[1.25rem] bg-white/[0.08] p-5 ring-1 ring-white/10">
-                  <p className="text-xl font-semibold">{isZh ? titleZh : title}</p>
-                  <p className="mt-3 text-sm font-semibold text-white/58">{isZh ? bodyZh : body}</p>
+              {(isZh
+                ? ["私密個人 check-in", "匿名團隊趨勢", "AI 支援建議", "每月管理報告"]
+                : ["Private personal check-ins", "Anonymous team trends", "AI support recommendations", "Monthly management reports"]
+              ).map((item) => (
+                <div key={item} className="rounded-[1.25rem] bg-white/[0.08] p-5 text-sm font-semibold text-white/78 ring-1 ring-white/10">
+                  {item}
                 </div>
               ))}
             </div>
@@ -123,21 +157,16 @@ export default function B2BPage() {
       <section className="py-20 sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:px-8">
           <div>
-            <p className="text-sm font-semibold text-[#248a3d]">{isZh ? "為何需要 B2B" : "Why B2B"}</p>
+            <p className="text-sm font-semibold text-[#248a3d]">{isZh ? "點解係 B2B-first" : "Why B2B-first"}</p>
             <h2 className="mt-4 text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none">
-              {isZh ? "機構不需要另一張 wellness 海報。" : "Organizations do not need another wellness poster."}
+              {isZh ? "市場缺口唔係更多健康內容，而係一套可以被機構信任嘅系統。" : "The gap is not more health content. It is a system institutions can trust."}
             </h2>
-            <p className="mt-6 text-lg leading-8 text-[#6e6e73]">
-              {isZh
-                ? "它們需要一個管理層，將 wellbeing 訊號變成時機、優先次序和可量度行動。"
-                : "They need a management layer that turns wellbeing signals into timing, prioritization, and measurable action."}
-            </p>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {b2bProblems.map(([problem, problemZh]) => (
-              <div key={problem} className="rounded-[1.5rem] bg-white p-5 shadow-sm ring-1 ring-black/5">
+            {problems.map((item) => (
+              <div key={item.en} className="rounded-[1.5rem] bg-white p-5 shadow-sm ring-1 ring-black/5">
                 <ShieldCheck className="size-6 text-[#34c759]" aria-hidden="true" />
-                <p className="mt-8 text-base font-semibold leading-7">{isZh ? problemZh : problem}</p>
+                <p className="mt-8 text-base font-semibold leading-7">{isZh ? item.zh : item.en}</p>
               </div>
             ))}
           </div>
@@ -147,19 +176,19 @@ export default function B2BPage() {
       <section className="bg-white py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="max-w-4xl">
-            <p className="text-sm font-semibold text-[#007aff]">{isZh ? "B2B 產品訊息" : "What the B2B product says"}</p>
+            <p className="text-sm font-semibold text-[#007aff]">{isZh ? "產品模組" : "Product modules"}</p>
             <h2 className="mt-4 text-[clamp(2.5rem,6vw,5.6rem)] font-semibold leading-[0.98]">
-              {isZh ? "HumanOS 幫管理者更早支援人。" : "HumanOS helps leaders support people earlier."}
+              {isZh ? "個人得到支援，機構得到匿名洞察。" : "Personal support for users. Anonymous intelligence for institutions."}
             </h2>
           </div>
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
-            {b2bModules.map(({ icon: Icon, title, titleZh, body, bodyZh }) => (
-              <div key={title} className="rounded-[1.8rem] bg-[#f5f5f7] p-7 ring-1 ring-black/5">
+            {modules.map(({ icon: Icon, en, zh, bodyEn, bodyZh }) => (
+              <div key={en} className="rounded-[1.8rem] bg-[#f5f5f7] p-7 ring-1 ring-black/5">
                 <div className="grid size-14 place-items-center rounded-3xl bg-white text-[#007aff] shadow-sm ring-1 ring-black/5">
                   <Icon className="size-7" aria-hidden="true" />
                 </div>
-                <h3 className="mt-8 text-3xl font-semibold leading-none">{isZh ? titleZh : title}</h3>
-                <p className="mt-5 text-base leading-7 text-[#6e6e73]">{isZh ? bodyZh : body}</p>
+                <h3 className="mt-8 text-3xl font-semibold leading-none">{isZh ? zh : en}</h3>
+                <p className="mt-5 text-base leading-7 text-[#6e6e73]">{isZh ? bodyZh : bodyEn}</p>
               </div>
             ))}
           </div>
@@ -167,31 +196,61 @@ export default function B2BPage() {
       </section>
 
       <section className="bg-[#1d1d1f] py-20 text-white sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-            <div>
-              <p className="text-sm font-semibold text-[#5ac8fa]">{isZh ? "Pilot 結構" : "Pilot structure"}</p>
-              <h2 className="mt-4 text-[clamp(2.6rem,6vw,5.8rem)] font-semibold leading-none">
-                {isZh ? "三個月，由 baseline 到 rollout plan。" : "Three months from baseline to rollout plan."}
-              </h2>
-            </div>
-            <div className="space-y-3">
-              {b2bSteps.map(([period, periodZh, body, bodyZh]) => (
-                <div key={period} className="rounded-[1.5rem] bg-white/[0.08] p-5 ring-1 ring-white/10">
-                  <p className="text-xl font-semibold">{isZh ? periodZh : period}</p>
-                  <p className="mt-3 text-sm leading-7 text-white/62">{isZh ? bodyZh : body}</p>
-                </div>
-              ))}
-            </div>
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:px-8">
+          <div>
+            <p className="text-sm font-semibold text-[#5ac8fa]">{isZh ? "3 個月 pilot" : "3-month pilot"}</p>
+            <h2 className="mt-4 text-[clamp(2.6rem,6vw,5.8rem)] font-semibold leading-none">
+              {isZh ? "由 baseline 到可續約嘅 rollout plan。" : "From baseline to a renewal-ready rollout plan."}
+            </h2>
+          </div>
+          <div className="space-y-3">
+            {pilotSteps.map((step) => (
+              <div key={step.en} className="rounded-[1.5rem] bg-white/[0.08] p-5 ring-1 ring-white/10">
+                <p className="text-xl font-semibold">{isZh ? step.zh : step.en}</p>
+                <p className="mt-3 text-sm leading-7 text-white/62">{isZh ? step.bodyZh : step.bodyEn}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16">
+      <section className="bg-white py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+            <div>
+              <p className="text-sm font-semibold text-[#ff375f]">{isZh ? "商業模式" : "Commercial model"}</p>
+              <h2 className="mt-4 text-[clamp(2.3rem,5vw,4.8rem)] font-semibold leading-none">
+                {isZh ? "清楚定價，方便學校、酒店同企業做採購決定。" : "Clear packages for school, hotel, enterprise, and public-sector procurement."}
+              </h2>
+            </div>
+            <div className="grid gap-3 md:grid-cols-2">
+              {prices.map(([name, price, en, zh]) => (
+                <div key={name} className="rounded-[1.5rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
+                  <p className="text-sm font-semibold text-[#6e6e73]">{name}</p>
+                  <p className="mt-3 text-2xl font-semibold text-[#007aff]">{price}</p>
+                  <p className="mt-4 text-sm leading-6 text-[#6e6e73]">{isZh ? zh : en}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-10 grid gap-3 md:grid-cols-5">
+            {kpis.map(([en, zh]) => (
+              <div key={en} className="rounded-[1.25rem] bg-[#eefcf3] p-4 text-sm font-semibold text-[#248a3d]">
+                <CheckCircle2 className="mb-5 size-5" aria-hidden="true" />
+                {isZh ? zh : en}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f5f5f7] py-16">
         <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
           <UsersRound className="mx-auto size-9 text-[#007aff]" aria-hidden="true" />
           <h2 className="mt-5 text-[clamp(2.2rem,5vw,4.5rem)] font-semibold leading-none">
-            {isZh ? "B2B 訊息：保護私隱、改善決策、證明成效。" : "B2B message: protect privacy, improve decisions, prove impact."}
+            {isZh
+              ? "HumanOS 唔係員工監控工具，而係 privacy-first 嘅福祉智能層。"
+              : "HumanOS is not employee surveillance. It is a privacy-first wellbeing intelligence layer."}
           </h2>
         </div>
       </section>

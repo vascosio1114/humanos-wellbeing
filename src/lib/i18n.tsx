@@ -11,16 +11,6 @@ import {
 
 export type Locale = "en" | "zh";
 
-type Translation = (typeof translations)[Locale];
-
-type I18nContextValue = {
-  locale: Locale;
-  setLocale: (locale: Locale) => void;
-  t: Translation;
-};
-
-const I18nContext = createContext<I18nContextValue | null>(null);
-
 export const translations = {
   en: {
     nav: {
@@ -41,23 +31,23 @@ export const translations = {
       generateReport: "Generate AI Wellbeing Report",
     },
     footer: {
-      text: "AI-powered stress awareness, burnout risk visibility, and daily wellbeing support for schools and organizations. Not a medical diagnosis product.",
+      text: "B2B-first AI wellbeing intelligence for schools, enterprises, hotels, resorts, and public institutions. Wellbeing guidance only, not medical diagnosis.",
     },
     home: {
       eyebrow: "Wellbeing Intelligence Layer",
       headline: "The Operating System for Human Wellbeing",
       subheadline:
-        "HumanOS helps schools and organizations turn stress, sleep, focus, workload, motivation, and emotional wellbeing trends into early-support intelligence, anonymous dashboards, and a future wellbeing ecosystem.",
-      market: "Macao-first pilot platform for schools, universities, resorts, service teams, and HR departments.",
+        "HumanOS turns sleep, stress, focus, workload, mood, attendance, and participation signals into early-support intelligence, private AI plans, and anonymous institutional dashboards.",
+      market: "Macao-first pilot platform for schools, hotels, enterprises, and public-sector partners.",
       problemTitle: "Support often arrives too late.",
       problemBody:
         "Schools and organizations often rely on reactive support, low-frequency surveys, and fragmented wellbeing resources.",
-      solutionTitle: "HumanOS turns wellbeing signals into intelligence.",
+      solutionTitle: "Monitor, predict, plan, intervene, evaluate.",
       solutionBody:
-        "Private check-ins become early-support intelligence, daily support plans, personal dashboards, and anonymized institution dashboards.",
+        "Private check-ins become early-support intelligence, daily support plans, monthly reports, and anonymized institution dashboards.",
       privacyTitle: "Privacy-first by design.",
       privacyBody:
-        "Institutions see anonymous trends. Individuals keep private reflections private.",
+        "Institutions see anonymous trends. Individuals keep private reflections and AI conversations private.",
       businessTitle: "Pilot-ready B2B intelligence model.",
       roadmapTitle: "Roadmap from MVP to wellbeing ecosystem.",
     },
@@ -83,7 +73,7 @@ export const translations = {
         "How motivated do you feel?",
       ],
       report:
-        "Your stress level appears elevated compared with your recent baseline. Your sleep recovery score is below your usual range, which may be affecting focus and motivation. Today’s plan should prioritize recovery, lighter cognitive load, hydration, and a short breathing exercise. If this pattern continues, consider speaking with a trusted support professional.",
+        "Your stress level appears elevated compared with your recent baseline. Sleep recovery is below your usual range, which may be affecting focus and motivation. Today's plan should prioritize recovery, lighter cognitive load, hydration, and a short reset.",
       generated: "report generated",
       privacy:
         "Individual reflections remain private. Schools and employers only see anonymized, aggregated trends, and small groups are hidden to reduce identity inference risk.",
@@ -130,8 +120,8 @@ export const translations = {
     organizations: {
       headline: "AI wellbeing intelligence for high-pressure workplaces.",
       body:
-        "For hotels, resorts, casino operators, service teams, shift-based teams, and HR departments that need privacy-safe wellbeing visibility.",
-      targets: ["Hotels", "Resorts", "Casino operators", "Service teams", "Shift-based teams", "HR departments"],
+        "For hotels, resorts, service teams, shift-based teams, and HR departments that need privacy-safe wellbeing visibility.",
+      targets: ["Hotels", "Resorts", "Service teams", "Shift-based teams", "HR departments"],
       features: [
         "Employee wellbeing check-ins",
         "Stress and burnout awareness",
@@ -140,31 +130,30 @@ export const translations = {
         "AI recovery plan",
         "Anonymous HR dashboard",
         "Department comparison",
-        "Wellness campaign tracking",
+        "Wellbeing campaign tracking",
       ],
       privacy:
-        "Employers cannot read private journals or individual mental wellbeing content. They only see anonymized and grouped trends.",
+        "Employers cannot read private journals, individual AI conversations, or identifiable wellbeing reports. They only see anonymized and grouped trends.",
     },
     pilot: {
       headline: "Launch a 3-month wellbeing intelligence pilot.",
       months: [
-        ["Month 1", ["Needs interview", "Privacy and compliance setup", "User onboarding", "Baseline measurement"]],
-        ["Month 2", ["Daily check-ins", "AI daily plans", "Weekly dashboard review", "Wellbeing campaign suggestions"]],
-        ["Month 3", ["Outcome evaluation", "Pilot summary report", "Renewal proposal", "Expansion plan"]],
+        ["Weeks 1-2", ["Needs interview", "Privacy and consent setup", "Baseline questionnaire", "Account setup"]],
+        ["Month 2", ["AI personal plans", "Weekly check-ins", "Workshop", "15-minute consult option"]],
+        ["Month 3", ["Outcome evaluation", "Anonymous trend report", "Management review", "Renewal proposal"]],
       ],
       metrics: [
-        "Activation rate ≥ 70%",
-        "Weekly active rate ≥ 55%",
-        "Satisfaction ≥ 80%",
-        "Renewal intention ≥ 50%",
-        "Campaign participation tracked",
-        "Referral engagement tracked",
+        "Activation rate",
+        "Weekly active check-ins",
+        "AI plan completion >=40%",
+        "Management report usefulness",
+        "Renewal or expansion intent",
       ],
       pricing: [
-        ["Student Pilot", "MOP 30,000–80,000 for 3-month pilot"],
-        ["Team Wellness", "MOP 25–60 per user per month"],
-        ["Institution Pro", "Custom annual package"],
-        ["Platform Partner", "API / white-label / custom deployment"],
+        ["Pilot package", "MOP 38,000-88,000 for 3-month pilot"],
+        ["Standard institution", "MOP 25-45 per user per month"],
+        ["Institution professional", "MOP 120,000-360,000 per year"],
+        ["White-label / custom", "API / IoT / kiosk / regional deployment"],
       ],
     },
     privacy: {
@@ -189,17 +178,17 @@ export const translations = {
         "Private mental wellbeing content",
       ],
       responsible:
-        "HumanOS provides wellbeing guidance, stress awareness, and early-support insights. It does not provide medical diagnosis, treatment, cure, or crisis-prevention services. When needed, users should be referred to licensed professionals or existing school / workplace support channels.",
+        "HumanOS provides wellbeing guidance, stress awareness, and early-support insights. It does not provide medical diagnosis, treatment, prescriptions, or crisis intervention. Users should be referred to licensed professionals or existing school / workplace support channels when needed.",
     },
     technology: {
       headline: "AI workflow infrastructure for wellbeing intelligence.",
       body:
         "HumanOS is designed as workflow infrastructure, not a generic chatbot wrapper.",
       blocks: [
-        ["Agentic Workflows", "Signal Understanding Agent, RAG Knowledge Agent, Planning Agent, Safety Agent, Institutional Insight Agent"],
-        ["RAG Wellbeing Knowledge Base", "Reviewed wellbeing education materials, school support workflows, HR resources, sleep and focus guidance, institutional SOPs."],
-        ["Time-Series Trend Detection", "Tracks stress, sleep, focus, motivation, workload, and emotional balance over time."],
-        ["Privacy-First Data Governance", "Role-based access, anonymization, small-group suppression, audit logs, and sensitive data separation."],
+        ["Time-series wellbeing layer", "Tracks stress, sleep, focus, workload, mood, attendance, and participation over time."],
+        ["RAG wellbeing knowledge base", "Reviewed wellbeing education, HR resources, school support workflows, and institutional SOPs."],
+        ["Agent workflows", "Monitoring, prediction, planning, resource routing, reporting, and referral escalation."],
+        ["Privacy-first governance", "Role-based access, anonymization, sample thresholds, small-group suppression, and sensitive data separation."],
       ],
     },
     contact: {
@@ -220,60 +209,61 @@ export const translations = {
   zh: {
     nav: {
       product: "Demo",
-      students: "學生方案",
-      organizations: "機構方案",
-      pilot: "試點計劃",
+      students: "學生",
+      organizations: "機構",
+      pilot: "試點",
       privacy: "私隱",
       technology: "技術",
-      contact: "申請試點",
-      subtitle: "AI 福祉智能平台",
+      contact: "開始 Pilot",
+      subtitle: "AI 福祉智能",
     },
     cta: {
       viewDemo: "查看 Demo",
-      startPilot: "申請試點",
-      startPilotConversation: "開始試點洽談",
-      applyPilot: "申請試點",
+      startPilot: "開始 Pilot",
+      startPilotConversation: "開始 Pilot 對話",
+      applyPilot: "申請 Pilot",
       generateReport: "生成 AI 福祉報告",
     },
     footer: {
-      text: "HumanOS 提供壓力覺察、倦怠風險 awareness 及每日福祉支援，面向學校與機構。不屬於醫療診斷產品。",
+      text: "B2B-first AI 福祉智能平台，面向學校、企業、酒店、綜合度假村及公共機構。只提供福祉指引，不屬於醫療診斷。",
     },
     home: {
       eyebrow: "Wellbeing Intelligence Layer",
       headline: "The Operating System for Human Wellbeing",
       subheadline:
-        "HumanOS 幫助學校與機構將壓力、睡眠、專注、工作量、動力及情緒福祉趨勢，轉化為早期支援智能、匿名化儀表板及未來 wellbeing ecosystem。",
-      market: "以澳門為首個試點市場，面向學校、大學、酒店、度假村、服務團隊及 HR 部門。",
-      problemTitle: "很多支援，都來得太遲。",
+        "HumanOS 將睡眠、壓力、專注、工作量、情緒、出席及參與訊號，轉化成早期支援智能、私密 AI 計劃及匿名機構 dashboard。",
+      market: "由澳門試點開始，面向學校、酒店、企業及公共機構合作夥伴。",
+      problemTitle: "支援通常太遲出現。",
       problemBody:
-        "學校與機構往往依賴被動支援、低頻問卷及分散的福祉資源，難以及早掌握趨勢。",
-      solutionTitle: "HumanOS 將福祉訊號轉化為 intelligence。",
+        "學校及機構經常依賴事後支援、低頻問卷及分散嘅 wellbeing 資源。",
+      solutionTitle: "監測、預測、規劃、介入、評估。",
       solutionBody:
-        "私密 check-in 會轉化成早期支援 intelligence、每日支援計劃、個人儀表板及匿名化機構儀表板。",
+        "私密 check-in 會變成早期支援智能、每日支援計劃、每月報告及匿名機構 dashboard。",
       privacyTitle: "私隱優先設計。",
-      privacyBody: "機構只看到匿名趨勢；個人反思及私人內容保持私密。",
-      businessTitle: "適合試點落地的 B2B intelligence 模式。",
+      privacyBody:
+        "機構只看到匿名趨勢；個人反思及 AI 對話保持私密。",
+      businessTitle: "適合試點落地嘅 B2B intelligence 模式。",
       roadmapTitle: "由 MVP 走向 wellbeing ecosystem。",
     },
     demo: {
-      headline: "由 check-in 到早期支援的互動 Demo。",
+      headline: "由 check-in 到早期支援嘅互動 demo。",
       body:
-        "選擇身份、完成 wellbeing check-in、生成報告，並查看個人及匿名化機構儀表板如何更新。",
-      steps: ["選擇身份", "完成 wellbeing check-in", "生成分數", "AI 福祉報告", "每日支援計劃", "儀表板更新"],
-      profiles: ["學生", "員工", "學校管理員 / HR"],
+        "選擇身份、完成 wellbeing check-in、生成報告，並查看個人及匿名機構 dashboard 如何更新。",
+      steps: ["選擇身份", "完成 wellbeing check-in", "生成分數", "AI 福祉報告", "每日支援計劃", "Dashboard 更新"],
+      profiles: ["學生", "員工", "學校 Admin / HR"],
       questions: [
         "你今日壓力有幾高？",
         "你昨晚睡眠質素如何？",
-        "你今日專注力如何？",
-        "你今日情緒平衡如何？",
-        "你覺得工作量 / 學業量有幾重？",
+        "你今日專注度如何？",
+        "你情緒平衡如何？",
+        "你工作量或學業量有幾重？",
         "你今日動力如何？",
       ],
       report:
-        "你今日的壓力水平較近期基線偏高，睡眠恢復分數亦低於平常水平，可能會影響專注力與動力。今日建議優先安排恢復、降低認知負荷、補充水分，並完成一個短呼吸練習。如果這種狀態持續，建議考慮透過可信任的支援渠道或專業人士尋求協助。",
+        "你嘅壓力比近期 baseline 高，睡眠恢復亦低於平常範圍，可能影響專注同動力。今日計劃應優先處理恢復、減低認知負荷、補水同短時間 reset。",
       generated: "報告已生成",
       privacy:
-        "個人反思保持私密。學校與僱主只會看到匿名化、聚合趨勢，小樣本群組會被隱藏，以降低身份推斷風險。",
+        "個人反思保持私密。學校及僱主只會看到匿名、聚合趨勢；小樣本群組會被隱藏，減低身份推斷風險。",
     },
     labels: {
       wellbeingScore: "福祉分數",
@@ -282,9 +272,9 @@ export const translations = {
       focusScore: "專注分數",
       motivation: "動力",
       emotionalBalance: "情緒平衡",
-      burnoutAwareness: "倦怠風險 awareness",
+      burnoutAwareness: "倦怠風險覺察",
       aiDailyPlan: "AI 每日計劃",
-      anonymousDashboard: "匿名化機構儀表板",
+      anonymousDashboard: "匿名機構 Dashboard",
       participation: "參與率",
       weeklyTrend: "每週趨勢",
       aiRecommendations: "AI 建議",
@@ -293,84 +283,92 @@ export const translations = {
       morning: "早上",
       afternoon: "下午",
       evening: "晚上",
-      morningTasks: ["3 分鐘呼吸重置", "補充水分", "輕量計劃"],
-      afternoonTasks: ["15 分鐘步行", "專注工作時段", "均衡飲食"],
+      morningTasks: ["3 分鐘呼吸 reset", "補水", "輕量規劃"],
+      afternoonTasks: ["15 分鐘步行", "專注時段", "均衡飲食"],
       eveningTasks: ["反思日記", "減少螢幕時間", "睡眠準備"],
     },
     students: {
-      headline: "在壓力惡化之前，為學生提供 AI 福祉支援。",
+      headline: "在壓力變成危機前，為學生提供 AI 福祉支援。",
       body:
-        "HumanOS 幫助學校了解學業壓力、睡眠與專注下降、情緒 check-in 趨勢及支援需要，並透過匿名化儀表板保護學生私隱。",
+        "HumanOS 幫學校理解學業壓力、睡眠與專注下降、情緒 check-in 模式及支援需要，同時以匿名 dashboard 保護學生私隱。",
       features: ["私密 wellbeing check-in", "壓力覺察", "睡眠質素追蹤", "專注分數", "動力追蹤", "情緒平衡", "AI 學習福祉計劃", "每週福祉摘要"],
       privacy:
-        "學校不能查看個人日記、私人反思或私人 AI Coach 對話，只能查看匿名化群組趨勢。",
+        "學校不能查看個人日記、私人反思或私人 AI Coach 對話，只能查看匿名群組趨勢。",
     },
     organizations: {
-      headline: "面向高壓工作環境的 AI 福祉智能系統。",
+      headline: "面向高壓工作環境嘅 AI 福祉智能。",
       body:
-        "適用於酒店、度假村、娛樂場營運商、服務團隊、輪班團隊及 HR 部門，提供私隱安全的福祉趨勢洞察。",
-      targets: ["酒店", "度假村", "娛樂場營運商", "服務團隊", "輪班團隊", "HR 部門"],
-      features: ["員工 wellbeing check-in", "壓力及倦怠 awareness", "輪班睡眠影響", "團隊能量趨勢", "AI 恢復計劃", "匿名 HR 儀表板", "部門比較", "福祉活動追蹤"],
+        "適合酒店、綜合度假村、服務團隊、輪班團隊及 HR 部門，提供 privacy-safe wellbeing visibility。",
+      targets: ["酒店", "綜合度假村", "服務團隊", "輪班團隊", "HR 部門"],
+      features: ["員工 wellbeing check-in", "壓力及倦怠覺察", "輪班睡眠影響", "團隊能量趨勢", "AI 恢復計劃", "匿名 HR dashboard", "部門比較", "福祉活動追蹤"],
       privacy:
-        "企業不能查看個人日記、私人反思或個人心理福祉內容，只能查看匿名化及群組化趨勢。",
+        "僱主不能閱讀私人日記、個人 AI 對話或可識別 wellbeing 報告，只能查看匿名分組趨勢。",
     },
     pilot: {
-      headline: "啟動 3 個月福祉智能試點。",
+      headline: "啟動 3 個月 wellbeing intelligence pilot。",
       months: [
-        ["第 1 個月", ["需求訪談", "私隱及合規設定", "用戶導入", "基線測量"]],
-        ["第 2 個月", ["每日 check-in", "AI 每日計劃", "每週 dashboard 回顧", "福祉活動建議"]],
-        ["第 3 個月", ["成效評估", "試點總結報告", "續約方案", "擴展建議"]],
+        ["第 1-2 週", ["需求訪談", "私隱及同意設定", "Baseline 問卷", "帳戶設定"]],
+        ["第 2 個月", ["個人 AI 計劃", "每週 check-in", "工作坊", "15 分鐘諮詢選項"]],
+        ["第 3 個月", ["成效評估", "匿名趨勢報告", "管理層回顧", "續約建議"]],
       ],
-      metrics: ["啟動率 ≥ 70%", "每週活躍率 ≥ 55%", "滿意度 ≥ 80%", "續約意向 ≥ 50%", "活動參與追蹤", "轉介互動追蹤"],
+      metrics: ["啟用率", "每週活躍 check-in", "AI 計劃完成率 >=40%", "管理報告有用程度", "續約或擴展意向"],
       pricing: [
-        ["Student Pilot", "3 個月試點 MOP 30,000–80,000"],
-        ["Team Wellness", "每位用戶每月 MOP 25–60"],
-        ["Institution Pro", "年度自訂方案"],
-        ["Platform Partner", "API / white-label / 自訂部署"],
+        ["Pilot package", "3 個月 MOP 38,000-88,000"],
+        ["Standard institution", "每位用戶每月 MOP 25-45"],
+        ["Institution professional", "每年 MOP 120,000-360,000"],
+        ["White-label / custom", "API / IoT / kiosk / 區域部署"],
       ],
     },
     privacy: {
-      headline: "私隱優先的福祉智能系統。",
-      canSeeTitle: "機構可以查看",
-      cannotSeeTitle: "機構不能查看",
-      canSee: ["匿名壓力趨勢", "睡眠及專注趨勢", "參與率", "部門 / 班級 / 群組比較", "活動進度", "月度福祉摘要", "轉介數量"],
-      cannotSee: ["個人日記", "私人反思", "個人 AI 對話", "可識別個人的福祉報告", "小樣本可識別資料", "私人心理福祉內容"],
+      headline: "私隱優先嘅福祉智能。",
+      canSeeTitle: "機構可以見到",
+      cannotSeeTitle: "機構不能見到",
+      canSee: ["匿名壓力趨勢", "睡眠及專注趨勢", "參與率", "部門 / 班級 / cohort 比較", "活動進度", "每月 wellbeing 摘要", "轉介量"],
+      cannotSee: ["個人日記", "私人反思", "個人 AI 對話", "可識別 wellbeing 報告", "小樣本可識別資料", "私人心理福祉內容"],
       responsible:
-        "HumanOS 提供福祉指引、壓力覺察及早期支援參考，不提供醫療診斷、治療、治癒或危機干預服務。如有需要，使用者應透過合資格專業人士或既有學校 / 工作場所支援渠道尋求協助。",
+        "HumanOS 提供福祉指引、壓力覺察及早期支援參考，不提供醫療診斷、治療、處方或危機介入。如有需要，應轉介至合資格專業人士或既有學校 / 工作場所支援渠道。",
     },
     technology: {
-      headline: "支撐福祉智能的 AI 工作流基礎設施。",
-      body: "HumanOS 被設計成工作流基礎設施，而不是一般 GPT wrapper。",
+      headline: "支撐福祉智能嘅 AI 工作流基礎設施。",
+      body: "HumanOS 被設計成 workflow infrastructure，而唔係一般 chatbot wrapper。",
       blocks: [
-        ["Agentic Workflows", "訊號理解 Agent、RAG 知識 Agent、計劃 Agent、安全 Agent、機構洞察 Agent"],
-        ["RAG 福祉知識庫", "經審閱的福祉教育材料、學校支援流程、HR 資源、睡眠與專注指引、機構 SOP。"],
-        ["時間序列趨勢偵測", "持續追蹤壓力、睡眠、專注、動力、工作量及情緒平衡。"],
-        ["私隱優先資料治理", "角色權限、匿名化、小樣本隱藏、審計紀錄及敏感資料分離。"],
+        ["時間序列 wellbeing 層", "持續追蹤壓力、睡眠、專注、工作量、情緒、出席及參與率。"],
+        ["RAG 福祉知識庫", "使用經審核 wellbeing 教育內容、HR 資源、學校支援流程及機構 SOP。"],
+        ["Agent 工作流", "監測、預測、規劃、資源配置、報告及轉介升級。"],
+        ["私隱優先治理", "角色權限、匿名化、樣本門檻、小群組隱藏及敏感資料隔離。"],
       ],
     },
     contact: {
-      headline: "開始試點洽談。",
-      body: "告訴我們你的學校或機構試點需要。此 demo 表單只展示流程，不會傳送資料到後端。",
+      headline: "開始 pilot 對話。",
+      body:
+        "告訴我們你嘅學校或機構 pilot 需要。此 demo form 只展示預期流程，不會發送資料到 backend。",
       fields: {
         name: "姓名",
         organization: "機構",
         role: "職位",
-        email: "電郵",
-        pilotType: "試點類型",
+        email: "Email",
+        pilotType: "Pilot 類型",
         message: "訊息",
       },
-      success: "謝謝。此 demo 已記錄你的試點申請狀態。",
+      success: "多謝。你嘅 pilot request 已在 demo 中記錄。",
     },
   },
 };
 
+type Translation = (typeof translations)[Locale];
+
+type I18nContextValue = {
+  locale: Locale;
+  setLocale: (locale: Locale) => void;
+  t: Translation;
+};
+
+const I18nContext = createContext<I18nContextValue | null>(null);
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>(() => {
-    if (typeof window === "undefined") {
-      return "en";
-    }
-    const saved = window.localStorage.getItem("humanos-locale");
-    return saved === "zh" ? "zh" : "en";
+    if (typeof window === "undefined") return "en";
+    return window.localStorage.getItem("humanos-locale") === "zh" ? "zh" : "en";
   });
 
   useEffect(() => {
@@ -383,11 +381,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
       window.localStorage.setItem("humanos-locale", nextLocale);
     }
 
-    return {
-      locale,
-      setLocale,
-      t: translations[locale],
-    };
+    return { locale, setLocale, t: translations[locale] };
   }, [locale]);
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;

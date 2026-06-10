@@ -22,21 +22,21 @@ type ChatMessage = {
 const quickPrompts = {
   en: [
     "What is HumanOS?",
-    "How does the school pilot work?",
-    "How can this help organizations?",
+    "How does the pilot work?",
     "What data stays private?",
+    "How much does it cost?",
   ],
   zh: [
     "HumanOS 係咩？",
-    "學校點樣用？",
-    "點幫機構同博企？",
-    "私隱點保障？",
+    "Pilot 點樣做？",
+    "咩資料保持私密？",
+    "收費幾多？",
   ],
 };
 
 const intro = {
-  en: "Hi, I am the HumanOS AI Guide. Ask me how the wellbeing intelligence layer works for students, schools, HR teams, and high-pressure organizations.",
-  zh: "你好，我係 HumanOS AI Guide。你可以問我 HumanOS 點樣幫學生、學校、HR 團隊同高壓機構做 early support intelligence。",
+  en: "Hi, I am the HumanOS AI Guide. Ask me how the B2B wellbeing intelligence platform works for schools, hotels, enterprises, and public institutions.",
+  zh: "你好，我係 HumanOS AI Guide。你可以問我 HumanOS 點樣幫學校、酒店、企業同公共機構做 B2B wellbeing intelligence。",
 };
 
 function includesAny(source: string, terms: string[]) {
@@ -47,79 +47,45 @@ function buildReply(input: string, locale: "en" | "zh") {
   const text = input.toLowerCase();
   const isZh = locale === "zh";
 
-  if (
-    includesAny(text, [
-      "suicide",
-      "self-harm",
-      "kill myself",
-      "harm myself",
-      "自殺",
-      "傷害自己",
-      "唔想生存",
-      "想死",
-    ])
-  ) {
+  if (includesAny(text, ["suicide", "self-harm", "kill myself", "harm myself", "自殺", "傷害自己", "即時危險"])) {
     return isZh
-      ? "如果你或身邊人而家有即時危險，請即刻聯絡當地緊急服務、學校輔導員、信任嘅成年人或專業支援。HumanOS 可以做壓力覺察同早期支援提示，但唔係危機介入或醫療診斷工具。"
-      : "If you or someone nearby may be in immediate danger, contact local emergency services, a trusted adult, school counselor, or licensed support professional now. HumanOS can support stress awareness and early support routing, but it is not a crisis intervention or medical diagnosis tool.";
+      ? "如果你或身邊人有即時危險，請即刻聯絡當地緊急服務、可信任嘅成年人、學校輔導員或合資格專業人士。HumanOS 只做 wellbeing awareness 同早期支援提示，唔係危機介入或醫療診斷工具。"
+      : "If you or someone nearby may be in immediate danger, contact local emergency services, a trusted adult, school counselor, or licensed support professional now. HumanOS supports wellbeing awareness and early support routing, but it is not crisis intervention or medical diagnosis.";
   }
 
-  if (includesAny(text, ["privacy", "private", "anonymous", "data", "私隱", "匿名", "資料"])) {
+  if (includesAny(text, ["privacy", "private", "anonymous", "data", "私隱", "匿名", "資料", "私人"])) {
     return isZh
-      ? "HumanOS 嘅核心係 privacy-first：學生或員工嘅私人反思、AI 對話、個人報告唔會俾學校或僱主睇。機構只會見到匿名、分組後嘅趨勢，例如壓力上升、睡眠下降、參與率同活動成效；太細嘅群組會隱藏，減低被辨認風險。"
-      : "HumanOS is privacy-first. Private reflections, individual AI chats, and personal reports stay with the user. Institutions only see anonymized group trends such as rising stress, sleep decline, participation, and campaign impact. Small groups are suppressed to reduce identity inference risk.";
+      ? "HumanOS 係 privacy-first：個人日記、私人反思、個人 AI 對話、可識別 wellbeing 報告唔會俾學校或僱主睇。機構只會睇匿名、聚合、達到樣本門檻嘅趨勢，例如壓力、睡眠、專注、工作量、參與率同活動成效。"
+      : "HumanOS is privacy-first. Personal journals, private reflections, individual AI chats, and identifiable wellbeing reports are not shown to schools or employers. Institutions only see anonymized, aggregated trends that meet sample thresholds, such as stress, sleep, focus, workload, participation, and campaign impact.";
   }
 
-  if (includesAny(text, ["school", "student", "class", "campus", "university", "學生", "學校", "班級", "大學"])) {
+  if (includesAny(text, ["pilot", "price", "pricing", "cost", "收費", "價錢", "幾多", "試點"])) {
     return isZh
-      ? "學校版本會由簡短 wellbeing check-in 開始，學生得到個人化 daily support plan；學校就睇匿名 cohort dashboard，知道邊啲班級壓力偏高、睡眠差、專注下降，早過問題爆發前安排支援。"
-      : "For schools, students complete short private wellbeing check-ins and receive daily support plans. School teams see anonymized cohort dashboards showing which classes or student groups have rising stress, weaker sleep, or declining focus, so support can arrive earlier.";
+      ? "最建議由 3 個月 pilot 開始：第 1-2 週做需求訪談、私隱同意、baseline 問卷同帳戶設定；第 2 個月推出 AI 個人計劃、check-in、工作坊及 15 分鐘諮詢；第 3 個月做匿名趨勢報告同續約建議。Pilot package 係 MOP 38,000-88,000；標準機構方案係 MOP 25-45 / user / month；Professional institution 係 MOP 120,000-360,000 / year。"
+      : "The recommended entry is a 3-month pilot: weeks 1-2 cover needs interviews, privacy consent, baseline questionnaire, and account setup; month 2 launches AI personal plans, check-ins, workshop, and optional 15-minute consults; month 3 delivers anonymous trend reporting and renewal recommendations. Pilot package: MOP 38,000-88,000. Standard institution: MOP 25-45/user/month. Professional institution: MOP 120,000-360,000/year.";
   }
 
-  if (
-    includesAny(text, [
-      "organization",
-      "company",
-      "enterprise",
-      "hr",
-      "hotel",
-      "resort",
-      "casino",
-      "workforce",
-      "機構",
-      "企業",
-      "博企",
-      "酒店",
-      "員工",
-      "輪班",
-    ])
-  ) {
+  if (includesAny(text, ["b2b", "organization", "company", "enterprise", "hr", "hotel", "resort", "school", "學校", "企業", "酒店", "機構", "hr"])) {
     return isZh
-      ? "機構方案適合澳門博企、酒店、服務業同輪班團隊。HumanOS 會將壓力、睡眠、疲勞、專注、士氣同 wellbeing campaign 效果變成匿名 workforce intelligence，幫 HR 睇到邊個部門或輪班組需要支援，同埋邊啲活動真正有效。"
-      : "The organization model fits hotels, resorts, integrated resort operators, service teams, and shift-based teams. HumanOS turns stress, sleep, fatigue, focus, morale, and campaign outcomes into anonymous workforce intelligence, helping HR see which teams need support and which wellbeing actions work.";
+      ? "HumanOS 係 B2B-first。佢幫學校、企業、酒店、綜合度假村同公共機構，將壓力、睡眠、專注、工作量、情緒、出席同參與率，轉成早期支援智能、匿名 dashboard、每月管理報告同資源配置建議。"
+      : "HumanOS is B2B-first. It helps schools, enterprises, hotels, resorts, and public institutions turn stress, sleep, focus, workload, mood, attendance, and participation into early-support intelligence, anonymous dashboards, monthly management reports, and resource allocation recommendations.";
   }
 
-  if (includesAny(text, ["demo", "check-in", "test", "report", "flow", "測試", "報告", "點用"])) {
+  if (includesAny(text, ["agent", "duolingo", "coach", "b2c", "智能體", "個人", "任務"])) {
     return isZh
-      ? "Demo flow 係：用戶做 60 秒 check-in，系統生成個人 wellbeing score、風險提示、AI daily plan；同時匿名更新學校或機構 dashboard，展示趨勢、群組風險同活動成效。"
-      : "The demo flow is simple: a user completes a 60-second check-in, receives a personal wellbeing score, risk signals, and an AI daily plan. The institution dashboard updates only with anonymized trends, group risk signals, and campaign outcomes.";
+      ? "個人 Agent 係 HumanOS 嘅信任入口，似 Duolingo 咁有每日小任務、streak、XP 同 AI Coach。佢幫用戶完成 1-3 個可行 micro-plan；私人內容只屬於用戶，機構只收到匿名聚合趨勢。"
+      : "The personal agent is the trust layer of HumanOS. Like Duolingo, it uses daily quests, streaks, XP, and an AI coach. It gives users 1-3 practical micro-actions, while private content stays with the user and institutions only receive anonymous aggregated trends.";
   }
 
-  if (includesAny(text, ["pilot", "price", "pricing", "cost", "funding", "投資", "收費", "價錢", "試點"])) {
+  if (includesAny(text, ["technology", "rag", "agentic", "architecture", "技術", "架構", "rag"])) {
     return isZh
-      ? "最適合比賽同早期銷售嘅定位係 3 個月 pilot：先幫學校或機構建立 baseline，再追蹤 weekly wellbeing trend、參與率、支援需求同 campaign 效果。收費可以由學生/機構 pilot package 開始，再升級做年度 dashboard + AI support plan。"
-      : "The strongest early commercial path is a 3-month pilot: establish a baseline, track weekly wellbeing trends, participation, support needs, and campaign impact. Pricing can begin with student or organization pilot packages, then expand into annual dashboards and AI support plans.";
-  }
-
-  if (includesAny(text, ["research", "medical", "clinical", "diagnosis", "醫療", "診斷", "研究"])) {
-    return isZh
-      ? "HumanOS 應該定位做 research-informed wellbeing intelligence，而唔係醫療診斷。佢可以追蹤壓力、睡眠、專注、情緒平衡、動力同工作量趨勢，幫人及早留意風險，再連接學校或職場既有支援。"
-      : "HumanOS should be positioned as research-informed wellbeing intelligence, not a medical diagnosis product. It tracks stress, sleep, focus, emotional balance, motivation, and workload trends, then helps people notice risks earlier and connect with existing support channels.";
+      ? "HumanOS 唔係一個 chatbot，而係 architecture：時間序列 wellbeing layer、RAG 福祉知識庫、多 agent workflow、匿名 dashboard、角色權限、樣本門檻同小群組隱藏。核心流程係：監測 → 預測 → 規劃 → 介入 → 評估。"
+      : "HumanOS is not a chatbot. It is an architecture: time-series wellbeing layer, RAG wellbeing knowledge base, multi-agent workflows, anonymous dashboards, role permissions, sample thresholds, and small-group suppression. The core loop is Monitor → Predict → Plan → Intervene → Evaluate.";
   }
 
   return isZh
-    ? "HumanOS 係一個 Wellbeing Intelligence Layer，唔係普通 app。佢好似 CRM 管客戶、ERP 管公司咁，HumanOS 管人嘅 wellbeing：個人有 AI daily plan，學校同機構有匿名 dashboard，投資故事就係由 pilot 擴展到 wellbeing ecosystem 同 marketplace。"
-    : "HumanOS is a Wellbeing Intelligence Layer, not a single-purpose app. Like CRM manages customers and ERP manages companies, HumanOS manages wellbeing: individuals receive AI daily plans, institutions receive anonymous dashboards, and the long-term vision expands into a wellbeing ecosystem and marketplace.";
+    ? "HumanOS 係 B2B-first wellbeing intelligence layer。個人得到私密 AI 支援，機構得到匿名 dashboard 同每月管理報告。核心價值係早期發現風險、安排支援、量度活動成效，同時避免變成監控工具。"
+    : "HumanOS is a B2B-first wellbeing intelligence layer. Individuals receive private AI support, while institutions receive anonymous dashboards and monthly management reports. The core value is earlier risk visibility, better support planning, measurable campaign impact, and privacy-safe operation.";
 }
 
 export function AIChatWidget() {
@@ -166,7 +132,7 @@ export function AIChatWidget() {
                 <div>
                   <p className="text-sm font-semibold">HumanOS AI Guide</p>
                   <p className="mt-0.5 text-xs font-medium text-[#6e6e73]">
-                    {locale === "zh" ? "Wellbeing intelligence demo" : "Wellbeing intelligence demo"}
+                    {locale === "zh" ? "B2B wellbeing intelligence demo" : "B2B wellbeing intelligence demo"}
                   </p>
                 </div>
               </div>
@@ -181,7 +147,7 @@ export function AIChatWidget() {
             </div>
             <div className="mt-4 grid grid-cols-3 gap-2">
               {[
-                [Brain, locale === "zh" ? "早期風險" : "Early Risk"],
+                [Brain, locale === "zh" ? "早期風險" : "Early risk"],
                 [GraduationCap, locale === "zh" ? "學校" : "Schools"],
                 [Building2, locale === "zh" ? "機構" : "Teams"],
               ].map(([Icon, label]) => {
@@ -207,9 +173,7 @@ export function AIChatWidget() {
               >
                 <div
                   className={`max-w-[85%] rounded-3xl px-4 py-3 text-sm leading-6 ${
-                    message.role === "user"
-                      ? "bg-[#007aff] text-white"
-                      : "bg-[#f5f5f7] text-[#1d1d1f]"
+                    message.role === "user" ? "bg-[#007aff] text-white" : "bg-[#f5f5f7] text-[#1d1d1f]"
                   }`}
                 >
                   {message.content}

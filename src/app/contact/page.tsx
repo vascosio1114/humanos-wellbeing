@@ -39,7 +39,7 @@ export default function ContactPage() {
                 {t.contact.fields.pilotType}
                 <select className="field-input" defaultValue="school">
                   <option value="school">School Pilot</option>
-                  <option value="team">Team Wellness</option>
+                  <option value="standard">Standard Institution</option>
                   <option value="institution">Institution Pro</option>
                   <option value="partner">Platform Partner</option>
                 </select>

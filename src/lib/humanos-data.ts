@@ -355,44 +355,44 @@ export const roadmap = [
 
 export const pricingPlans = [
   {
-    name: "Student Pilot",
-    price: "Pilot",
+    name: "Pilot Package",
+    price: "MOP 38,000-88,000",
     features: [
-      "Student app",
-      "Wellbeing assessments",
-      "School dashboard",
-      "Monthly reports",
+      "3-month school, hotel, or enterprise pilot",
+      "Private check-ins and AI personal plans",
+      "Anonymous institution dashboard",
+      "Monthly management report",
     ],
   },
   {
-    name: "Team Wellness",
-    price: "Custom",
+    name: "Standard Institution",
+    price: "MOP 25-45 / user / month",
     features: [
-      "Employee app",
+      "100-1,000 users",
       "Anonymous HR dashboard",
       "Wellbeing campaigns",
-      "Department-level insights",
+      "Monthly reporting",
     ],
   },
   {
-    name: "Institution Pro",
-    price: "Custom",
+    name: "Institution Professional",
+    price: "MOP 120,000-360,000 / year",
     features: [
       "Role-based access",
       "Custom reports",
       "Workshops",
-      "Support workflow",
-      "Privacy controls",
+      "Professional support network",
+      "Referral workflow",
     ],
   },
   {
-    name: "Platform Partner",
-    price: "Partner",
+    name: "White-label / Custom",
+    price: "Custom",
     features: [
       "API",
+      "IoT and health kiosk integration",
       "White label",
-      "Custom deployment",
-      "Research collaboration",
+      "Regional platform deployment",
     ],
   },
 ];
