@@ -18,21 +18,22 @@ import {
   recognizedQuestionnaires,
 } from "@/lib/assessment-library";
 import { useI18n } from "@/lib/i18n";
+import { modelTasks, productPillars, proposalPositioning } from "@/lib/proposal-data";
 
 const architectureBlocks = [
   {
     icon: Brain,
-    en: "Assessment Engine",
-    zh: "Assessment Engine",
-    bodyEn: "Daily, weekly, monthly, student, and workplace modules convert custom questions into HumanOS wellbeing signals.",
-    bodyZh: "每日、每週、每月、學生及職場 module 會將自家題目轉成 HumanOS wellbeing signals。",
+    en: "Signal Engine",
+    zh: "Signal Engine",
+    bodyEn: "Daily check-ins, validated questionnaire references, sleep, stress, movement, hydration, and work rhythm become wellbeing signals.",
+    bodyZh: "每日打卡、國際問卷參考、睡眠、壓力、活動、飲水、工時節奏會轉成 wellbeing signals。",
   },
   {
     icon: Sparkles,
-    en: "AI Support Planner",
-    zh: "AI Support Planner",
-    bodyEn: "Signals become personal daily plans, micro-actions, campaign ideas, and referral suggestions when needed.",
-    bodyZh: "訊號會變成個人 daily plan、micro-actions、campaign ideas，同需要時嘅 referral suggestion。",
+    en: "Agent Workflow",
+    zh: "Agent Workflow",
+    bodyEn: "Monitoring, prediction, planning, resource, reporting, and referral agents convert signals into actions.",
+    bodyZh: "Monitoring、prediction、planning、resource、reporting、referral agents 會將訊號轉成行動。",
   },
   {
     icon: BarChart3,
@@ -69,15 +70,15 @@ export default function TechnologyPage() {
           <div className="max-w-5xl">
             <p className="inline-flex items-center gap-2 rounded-full bg-[#eaf5ff] px-4 py-2 text-sm font-semibold text-[#007aff] shadow-sm ring-1 ring-black/5">
               <Database className="size-4" aria-hidden="true" />
-              HumanOS Assessment Architecture
+              HumanOS Intelligence Architecture
             </p>
             <h1 className="mt-6 text-[clamp(3rem,7vw,6.8rem)] font-semibold leading-[0.94] tracking-normal">
-              {locale === "zh" ? "由國際問卷框架，變成 Wellbeing Intelligence Layer。" : "From recognized questionnaire frameworks to a wellbeing intelligence layer."}
+              {locale === "zh" ? "由健康訊號，變成機構可行動的 Wellbeing Intelligence Layer。" : "From health signals to an actionable wellbeing intelligence layer."}
             </h1>
             <p className="mt-7 max-w-3xl text-xl leading-9 text-[#6e6e73]">
               {locale === "zh"
-                ? "HumanOS 唔係照搬醫療問卷。平台用國際認可框架做參考，設計自家非診斷題目，再轉化成 awareness、trend、support suggestion 同匿名機構洞察。"
-                : "HumanOS does not copy medical questionnaires. It references recognized frameworks, designs custom non-diagnostic items, and converts them into awareness, trends, support suggestions, and anonymous institutional insight."}
+                ? `${proposalPositioning.subtitle}。平台用 time-series ML、RAG 知識庫、agent workflow 同匿名資料治理，支撐「監測、預測、規劃、介入、評估」閉環。`
+                : "The platform uses time-series ML, RAG knowledge bases, agent workflows, and anonymous governance to support monitoring, prediction, planning, intervention, and evaluation."}
             </p>
           </div>
 
@@ -87,6 +88,55 @@ export default function TechnologyPage() {
                 <Icon className="size-8 text-[#007aff]" aria-hidden="true" />
                 <h2 className="mt-8 text-2xl font-semibold leading-tight">{locale === "zh" ? zh : en}</h2>
                 <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{locale === "zh" ? bodyZh : bodyEn}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+            <div>
+              <p className="text-sm font-semibold text-[#007aff]">{locale === "zh" ? "AI / Data Core" : "AI / Data Core"}</p>
+              <h2 className="mt-4 text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none tracking-normal">
+                {locale === "zh" ? "技術唔係炫技，而係支援早期介入。" : "The technical core exists to support early intervention."}
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-[#6e6e73]">
+                {locale === "zh"
+                  ? "HumanOS 用時間序列模型做趨勢平滑、異常偵測、壓力與恢復比例分析；RAG 只引用已審核的非臨床健康教育、睡眠衛生、壓力管理、運動與飲食基礎、機構政策與支援資源。"
+                  : "HumanOS uses time-series models for trend smoothing, anomaly detection, and stress-recovery ratios. RAG is limited to reviewed non-clinical health education and institutional support resources."}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              {modelTasks.map(([task, input, output]) => (
+                <div key={task} className="rounded-[1.5rem] bg-white p-5 shadow-sm ring-1 ring-black/5">
+                  <BarChart3 className="size-7 text-[#007aff]" aria-hidden="true" />
+                  <p className="mt-6 text-xl font-semibold">{task}</p>
+                  <p className="mt-4 text-sm leading-7 text-[#6e6e73]">輸入：{input}</p>
+                  <p className="mt-4 text-sm font-semibold leading-6 text-[#1d1d1f]">輸出：{output}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 lg:px-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-sm font-semibold text-[#007aff]">{locale === "zh" ? "Product System" : "Product System"}</p>
+            <h2 className="mt-4 text-[clamp(2.5rem,6vw,5.6rem)] font-semibold leading-[0.98] tracking-normal">
+              {locale === "zh" ? "個人、機構、線下觸點、專業支援四層合一。" : "Personal, institutional, offline, and professional layers in one system."}
+            </h2>
+          </div>
+          <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {productPillars.map((pillar) => (
+              <div key={pillar.title} className="rounded-[1.6rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
+                <Database className="size-7 text-[#34c759]" aria-hidden="true" />
+                <h3 className="mt-6 text-2xl font-semibold leading-tight">{pillar.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{pillar.body}</p>
+                <p className="mt-4 text-sm font-semibold leading-6 text-[#1d1d1f]">{pillar.value}</p>
               </div>
             ))}
           </div>

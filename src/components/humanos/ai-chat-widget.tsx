@@ -23,14 +23,14 @@ const quickPrompts = {
   en: [
     "What is HumanOS?",
     "What assessments does it use?",
+    "What is the B2B business model?",
     "How does the school pilot work?",
-    "How can this help organizations?",
   ],
   zh: [
     "HumanOS 係咩？",
     "用咩問卷框架？",
+    "B2B 點樣賺錢？",
     "學校點樣用？",
-    "點幫機構同博企？",
   ],
 };
 
@@ -72,6 +72,28 @@ function buildReply(input: string, locale: "en" | "zh") {
 
   if (
     includesAny(text, [
+      "business",
+      "b2b",
+      "pricing",
+      "price",
+      "revenue",
+      "pilot",
+      "commercial",
+      "賺錢",
+      "商業",
+      "定價",
+      "收費",
+      "收入",
+      "試點",
+    ])
+  ) {
+    return isZh
+      ? "最新 proposal 將 HumanOS 定位為 B2B 優先、B2C 延展。收入包括三個月試點包 MOP 38,000-88,000、機構標準版 MOP 25-45/人/月、機構專業版 MOP 120,000-360,000/年、健康檢測亭方案、專業支援服務包、白標/API 合作。試點 KPI 包括週活躍打卡率 ≥55%、個人計劃完成率 ≥40%、管理端每月使用 ≥2 次、滿意度 ≥4/5。"
+      : "The latest proposal positions HumanOS as B2B-first with B2C extension. Revenue comes from 3-month pilots at MOP 38,000-88,000, standard institution plans at MOP 25-45/user/month, pro annual plans at MOP 120,000-360,000, health kiosk packages, professional support services, and white-label/API partnerships. Pilot KPIs include weekly check-in rate >=55%, action plan completion >=40%, admin usage >=2/month, and satisfaction >=4/5.";
+  }
+
+  if (
+    includesAny(text, [
       "assessment",
       "questionnaire",
       "survey",
@@ -99,8 +121,8 @@ function buildReply(input: string, locale: "en" | "zh") {
 
   if (includesAny(text, ["school", "student", "class", "campus", "university", "學生", "學校", "班級", "大學"])) {
     return isZh
-      ? "學校版本會由簡短 wellbeing check-in 開始，學生得到個人化 daily support plan；學校就睇匿名 cohort dashboard，知道邊啲班級壓力偏高、睡眠差、專注下降，早過問題爆發前安排支援。"
-      : "For schools, students complete short private wellbeing check-ins and receive daily support plans. School teams see anonymized cohort dashboards showing which classes or student groups have rising stress, weaker sleep, or declining focus, so support can arrive earlier.";
+      ? "學校版本以三個月試點開始：每日/每週打卡建立基線，學生得到 AI 個人計劃及支援入口；校方只睇匿名學生趨勢、班級/年級風險熱點、月度福祉報告及轉介建議，不會睇個人日記、AI 對話或個人分數。"
+      : "The school model starts with a 3-month pilot: daily/weekly check-ins build a baseline, students receive AI personal plans and support access, while schools only see anonymous trends, class/cohort risk hotspots, monthly wellbeing reports, and referral suggestions.";
   }
 
   if (
@@ -122,8 +144,8 @@ function buildReply(input: string, locale: "en" | "zh") {
     ])
   ) {
     return isZh
-      ? "機構方案適合澳門博企、酒店、服務業同輪班團隊。HumanOS 會將壓力、睡眠、疲勞、專注、士氣同 wellbeing campaign 效果變成匿名 workforce intelligence，幫 HR 睇到邊個部門或輪班組需要支援，同埋邊啲活動真正有效。"
-      : "The organization model fits hotels, resorts, integrated resort operators, service teams, and shift-based teams. HumanOS turns stress, sleep, fatigue, focus, morale, and campaign outcomes into anonymous workforce intelligence, helping HR see which teams need support and which wellbeing actions work.";
+      ? "機構方案適合澳門博企、酒店、企業、公共及社福機構。HumanOS 將員工健康打卡、睡眠、壓力、飲水、運動、久坐、工時、排班、活動成效等訊號，轉成匿名團隊熱點、福利資源配置建議、月度管理報告及專業支援分流。"
+      : "The organization model fits Macao integrated resorts, hotels, companies, and public/social-service institutions. HumanOS converts check-ins, sleep, stress, hydration, activity, sedentary time, shifts, and campaign outcomes into anonymous team hotspots, welfare allocation suggestions, monthly reports, and professional support routing.";
   }
 
   if (includesAny(text, ["demo", "check-in", "test", "report", "flow", "測試", "報告", "點用"])) {
@@ -145,8 +167,8 @@ function buildReply(input: string, locale: "en" | "zh") {
   }
 
   return isZh
-    ? "HumanOS 係一個 Wellbeing Intelligence Layer，唔係普通 app。佢好似 CRM 管客戶、ERP 管公司咁，HumanOS 管人嘅 wellbeing：個人有 AI daily plan，學校同機構有匿名 dashboard，投資故事就係由 pilot 擴展到 wellbeing ecosystem 同 marketplace。"
-    : "HumanOS is a Wellbeing Intelligence Layer, not a single-purpose app. Like CRM manages customers and ERP manages companies, HumanOS manages wellbeing: individuals receive AI daily plans, institutions receive anonymous dashboards, and the long-term vision expands into a wellbeing ecosystem and marketplace.";
+    ? "HumanOS 係 AI 驅動嘅工學共生健康智能平台：B2B 優先，服務學校、企業、酒店及公共機構。核心主線係「監測 → 預測 → 規劃 → 介入 → 評估」，將個人健康訊號轉化為私密 AI 計劃、匿名機構洞察、福利資源配置同專業支援閉環。"
+    : "HumanOS is an AI-powered wellbeing intelligence infrastructure for schools, companies, hotels, and public institutions. Its core loop is Monitor -> Predict -> Plan -> Intervene -> Evaluate, turning personal health signals into private AI plans, anonymous institutional insights, welfare allocation, and professional support loops.";
 }
 
 export function AIChatWidget() {

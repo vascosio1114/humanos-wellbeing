@@ -11,9 +11,9 @@ export function Navbar() {
     [t.nav.students, "/students"],
     [t.nav.organizations, "/organizations"],
     [locale === "zh" ? "問卷庫" : "Assessments", "/assessment-library"],
+    [locale === "zh" ? "商業計劃" : "Plan", "/business-plan"],
     [t.nav.pilot, "/pilot"],
     [t.nav.privacy, "/privacy"],
-    [t.nav.technology, "/technology"],
   ];
 
   return (
