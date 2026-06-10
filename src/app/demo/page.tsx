@@ -35,12 +35,14 @@ import {
   humanOSIndicators,
   recognizedQuestionnaires,
 } from "@/lib/assessment-library";
+import { useI18n } from "@/lib/i18n";
 
 type ScenarioKey = "student" | "hotel" | "admin";
 type FrequencyValue = 0 | 1 | 2 | 3 | 4;
 type AnswerValue = number | string;
 
 const frequencyOptions = ["Never", "Rarely", "Sometimes", "Often", "Very often"] as const;
+const frequencyOptionsZh = ["從不", "很少", "有時", "經常", "非常經常"] as const;
 
 const scenarios = [
   {
@@ -83,11 +85,11 @@ const scenarios = [
     description: "For counselors, HR teams, school leaders, and organization managers.",
     descriptionZh: "適合輔導員、HR、學校管理層及機構管理者。",
     groups: ["Group A", "Group B", "Group C", "Group D"],
-    groupZh: ["Group A", "Group B", "Group C", "Group D"],
+    groupZh: ["群組 A", "群組 B", "群組 C", "群組 D"],
     campaign: "Low-pressure check-in campaign",
     campaignZh: "低壓 check-in campaign",
     prioritySubject: "Group B",
-    prioritySubjectZh: "Group B",
+    prioritySubjectZh: "群組 B",
     resource: "Workload planning template",
     resourceZh: "工作量規劃模板",
   },
@@ -496,6 +498,9 @@ export default function DemoPage() {
 }
 
 function DemoHero() {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+
   return (
     <section className="relative isolate bg-white">
       <div className="absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_24%_12%,rgba(0,122,255,0.16),transparent_32%),radial-gradient(circle_at_76%_12%,rgba(52,199,89,0.16),transparent_30%),radial-gradient(circle_at_52%_0%,rgba(255,55,95,0.12),transparent_34%)]" />
@@ -503,31 +508,33 @@ function DemoHero() {
         <div>
           <p className="inline-flex items-center gap-2 rounded-full bg-[#eaf5ff] px-4 py-2 text-sm font-semibold text-[#007aff] shadow-sm ring-1 ring-black/5">
             <Sparkles className="size-4" aria-hidden="true" />
-            HumanOS Demo
+            {isZh ? "HumanOS 示範" : "HumanOS Demo"}
           </p>
           <h1 className="mt-6 text-[clamp(3rem,7vw,6.8rem)] font-semibold leading-[0.94] tracking-normal">
-            HumanOS Wellbeing Intelligence Lab
+            {isZh ? "HumanOS 福祉智能示範實驗室" : "HumanOS Wellbeing Intelligence Lab"}
           </h1>
           <p className="mt-7 max-w-2xl text-xl leading-9 text-[#6e6e73]">
-            Experience how a research-informed assessment library becomes a personal support plan, a wellbeing profile, and anonymous institutional insight.
+            {isZh
+              ? "體驗 HumanOS 如何將研究參考問卷、個人打卡、AI 支援計劃、個人福祉 profile 同匿名機構洞察連成一個完整流程。"
+              : "Experience how a research-informed assessment library becomes a personal support plan, a wellbeing profile, and anonymous institutional insight."}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#check-in"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#007aff] px-6 py-3.5 text-base font-semibold text-white shadow-[0_18px_40px_rgba(0,122,255,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0066d6] focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2"
             >
-              Start Research Demo
+              {isZh ? "開始示範測試" : "Start Research Demo"}
               <ArrowRight className="size-5" aria-hidden="true" />
             </a>
             <a
               href="#institution-dashboard"
               className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f5f5f7] px-6 py-3.5 text-base font-semibold text-[#1d1d1f] ring-1 ring-black/5 transition hover:bg-white hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2"
             >
-              View Institution Dashboard
+              {isZh ? "查看機構儀表板" : "View Institution Dashboard"}
             </a>
           </div>
           <div className="mt-8 flex flex-wrap gap-2">
-            {["Research-informed", "Privacy-first", "Non-diagnostic", "Anonymous insights"].map((badge) => (
+            {(isZh ? ["研究參考", "私隱優先", "非診斷", "匿名洞察"] : ["Research-informed", "Privacy-first", "Non-diagnostic", "Anonymous insights"]).map((badge) => (
               <span key={badge} className="rounded-full bg-[#f5f5f7] px-3 py-1.5 text-xs font-semibold text-[#6e6e73] ring-1 ring-black/5">
                 {badge}
               </span>
@@ -537,14 +544,21 @@ function DemoHero() {
 
         <div className="rounded-[2.2rem] bg-[#1d1d1f] p-4 text-white shadow-[0_30px_90px_rgba(0,0,0,0.18)]">
           <div className="rounded-[1.8rem] bg-white/[0.08] p-5 ring-1 ring-white/10">
-            <p className="text-sm font-semibold text-white/58">Research-informed intelligence flow</p>
+            <p className="text-sm font-semibold text-white/58">{isZh ? "研究參考智能流程" : "Research-informed intelligence flow"}</p>
             <div className="mt-6 grid gap-3">
-              {[
-                ["Assessment library", "01"],
-                ["Private check-in modules", "02"],
-                ["Personal support plan", "03"],
-                ["Anonymous institution intelligence", "04"],
-              ].map(([label, step]) => (
+              {(isZh
+                ? [
+                    ["問卷與指標庫", "01"],
+                    ["私人 check-in 模組", "02"],
+                    ["個人支援計劃", "03"],
+                    ["匿名機構洞察", "04"],
+                  ]
+                : [
+                    ["Assessment library", "01"],
+                    ["Private check-in modules", "02"],
+                    ["Personal support plan", "03"],
+                    ["Anonymous institution intelligence", "04"],
+                  ]).map(([label, step]) => (
                 <div key={step} className="flex items-center gap-4 rounded-[1.3rem] bg-white/[0.08] p-4 ring-1 ring-white/10">
                   <span className="grid size-9 place-items-center rounded-full bg-white text-sm font-semibold text-[#1d1d1f]">{step}</span>
                   <p className="text-sm font-semibold text-white/84">{label}</p>
@@ -559,6 +573,9 @@ function DemoHero() {
 }
 
 function AssessmentLibrarySection() {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+
   return (
     <section className="bg-[#f5f5f7] py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
@@ -566,16 +583,21 @@ function AssessmentLibrarySection() {
           <div>
             <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#007aff] shadow-sm ring-1 ring-black/5">
               <ClipboardCheck className="size-4" aria-hidden="true" />
-              HumanOS Assessment Library
+              {isZh ? "HumanOS 問卷與指標庫" : "HumanOS Assessment Library"}
             </p>
             <h2 className="mt-6 text-[clamp(2.7rem,5vw,5.4rem)] font-semibold leading-[0.98] tracking-normal">
-              Built on recognized wellbeing frameworks. Expressed as HumanOS signals.
+              {isZh ? "參考國際福祉框架，轉化成 HumanOS 可行動訊號。" : "Built on recognized wellbeing frameworks. Expressed as HumanOS signals."}
             </h2>
             <p className="mt-6 text-lg leading-8 text-[#6e6e73]">
-              HumanOS does not copy clinical or proprietary questionnaires. It uses custom, product-friendly items inspired by internationally recognized frameworks, then converts them into awareness, trends, support suggestions, and privacy-safe institutional intelligence.
+              {isZh
+                ? "HumanOS 不直接照搬臨床或 proprietary 問卷，而是參考國際認可框架，設計自家非診斷題目，再轉化為 awareness、趨勢、支援建議同私隱安全嘅機構洞察。"
+                : "HumanOS does not copy clinical or proprietary questionnaires. It uses custom, product-friendly items inspired by internationally recognized frameworks, then converts them into awareness, trends, support suggestions, and privacy-safe institutional intelligence."}
             </p>
             <div className="mt-6 rounded-[1.5rem] bg-[#fff4df] p-5 text-sm leading-7 text-[#1d1d1f] ring-1 ring-black/5">
-              <span className="font-semibold">Boundary:</span> no diagnosis result, no individual institutional report, no private journals shown to schools or HR.
+              <span className="font-semibold">{isZh ? "邊界：" : "Boundary:"}</span>{" "}
+              {isZh
+                ? "不顯示診斷結果、不生成個人機構報告、不向學校或 HR 顯示私人日記。"
+                : "no diagnosis result, no individual institutional report, no private journals shown to schools or HR."}
             </div>
           </div>
 
@@ -584,16 +606,16 @@ function AssessmentLibrarySection() {
               <div key={item.name} className="rounded-[1.7rem] bg-white p-5 shadow-sm ring-1 ring-black/5">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-[#007aff]">{item.cadence}</p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-normal">{item.name}</h3>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#007aff]">{isZh ? item.cadenceZh : item.cadence}</p>
+                    <h3 className="mt-2 text-2xl font-semibold tracking-normal">{isZh ? item.nameZh : item.name}</h3>
                   </div>
                   <span className="grid size-10 place-items-center rounded-full bg-[#f5f5f7] text-sm font-semibold text-[#1d1d1f] ring-1 ring-black/5">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{item.purpose}</p>
+                <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{isZh ? item.purposeZh : item.purpose}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  {item.outputs.map((output) => (
+                  {(isZh ? item.outputsZh : item.outputs).map((output) => (
                     <span key={output} className="rounded-full bg-[#f5f5f7] px-3 py-1.5 text-xs font-semibold text-[#6e6e73] ring-1 ring-black/5">
                       {output}
                     </span>
@@ -607,9 +629,9 @@ function AssessmentLibrarySection() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {humanOSIndicators.map((indicator) => (
             <div key={indicator.title} className="rounded-[1.5rem] bg-white p-5 ring-1 ring-black/5">
-              <p className="text-sm font-semibold text-[#007aff]">{indicator.title}</p>
-              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#6e6e73]">{indicator.basis}</p>
-              <p className="mt-4 text-sm leading-7 text-[#1d1d1f]">{indicator.output}</p>
+              <p className="text-sm font-semibold text-[#007aff]">{isZh ? indicator.titleZh : indicator.title}</p>
+              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#6e6e73]">{isZh ? indicator.basisZh : indicator.basis}</p>
+              <p className="mt-4 text-sm leading-7 text-[#1d1d1f]">{isZh ? indicator.outputZh : indicator.output}</p>
             </div>
           ))}
         </div>
@@ -625,10 +647,13 @@ function ScenarioSelector({
   scenarioIndex: number;
   setScenarioIndex: (index: number) => void;
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+
   return (
-    <Panel step="1" title="Choose Scenario">
+    <Panel step="1" title={isZh ? "選擇示範場景" : "Choose Scenario"}>
       <div className="grid gap-3">
-        {scenarios.map(({ icon: Icon, title, description }, index) => (
+        {scenarios.map(({ icon: Icon, title, titleZh, description, descriptionZh }, index) => (
           <button
             key={title}
             type="button"
@@ -644,8 +669,8 @@ function ScenarioSelector({
                 <Icon className="size-5" aria-hidden="true" />
               </span>
               <span>
-                <span className="block font-semibold">{title}</span>
-                <span className="mt-1 block text-sm leading-6 text-[#6e6e73]">{description}</span>
+                <span className="block font-semibold">{isZh ? titleZh : title}</span>
+                <span className="mt-1 block text-sm leading-6 text-[#6e6e73]">{isZh ? descriptionZh : description}</span>
               </span>
             </div>
           </button>
@@ -671,9 +696,11 @@ function ResearchCheckInWizard({
   onGenerate: () => void;
 }) {
   const activeModuleConfig = modules[activeModule];
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
 
   return (
-    <Panel step="2" title="Research-Informed Check-in Modules" id="check-in">
+    <Panel step="2" title={isZh ? "研究參考 Check-in 模組" : "Research-Informed Check-in Modules"} id="check-in">
       <div className="grid gap-3 sm:grid-cols-2">
         {modules.map((item, index) => (
           <button
@@ -684,16 +711,16 @@ function ResearchCheckInWizard({
               activeModule === index ? "bg-[#1d1d1f] text-white" : "bg-[#f5f5f7] text-[#1d1d1f] hover:bg-white"
             }`}
           >
-            {index + 1}. {item.title}
+            {index + 1}. {isZh ? item.titleZh : item.title}
           </button>
         ))}
       </div>
 
       <div className="mt-5 rounded-[1.5rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
-        <p className="text-xs font-semibold uppercase tracking-wide text-[#007aff]">{activeModuleConfig.inspiredBy}</p>
-        <h2 className="mt-2 text-3xl font-semibold tracking-normal">{activeModuleConfig.title}</h2>
+        <p className="text-xs font-semibold uppercase tracking-wide text-[#007aff]">{isZh ? activeModuleConfig.inspiredByZh : activeModuleConfig.inspiredBy}</p>
+        <h2 className="mt-2 text-3xl font-semibold tracking-normal">{isZh ? activeModuleConfig.titleZh : activeModuleConfig.title}</h2>
         <div className="mt-4 flex flex-wrap gap-2">
-          {activeModuleConfig.outputs.map((output) => (
+          {(isZh ? activeModuleConfig.outputsZh : activeModuleConfig.outputs).map((output) => (
             <span key={output} className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-[#6e6e73] ring-1 ring-black/5">
               {output}
             </span>
@@ -717,7 +744,9 @@ function ResearchCheckInWizard({
         onClick={onGenerate}
         className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#007aff] px-6 py-3.5 text-base font-semibold text-white shadow-[0_18px_40px_rgba(0,122,255,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0066d6] focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2 sm:w-auto"
       >
-        {generated ? "Regenerate Wellbeing Intelligence" : "Generate Wellbeing Intelligence"}
+        {generated
+          ? isZh ? "重新生成福祉智能分析" : "Regenerate Wellbeing Intelligence"
+          : isZh ? "生成福祉智能分析" : "Generate Wellbeing Intelligence"}
         <ArrowRight className="size-5" aria-hidden="true" />
       </button>
     </Panel>
@@ -733,12 +762,16 @@ function ModuleQuestionCard({
   answer: AnswerValue;
   updateAnswer: (id: string, value: AnswerValue) => void;
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const options = isZh ? frequencyOptionsZh : frequencyOptions;
+
   return (
     <div className="rounded-[1.35rem] bg-white p-4 ring-1 ring-black/5">
-      <p className="font-semibold leading-6">{question.label}</p>
+      <p className="font-semibold leading-6">{isZh ? question.labelZh : question.label}</p>
       {question.type === "frequency" ? (
         <div className="mt-4 grid gap-2 sm:grid-cols-5">
-          {frequencyOptions.map((option, index) => (
+          {options.map((option, index) => (
             <button
               key={option}
               type="button"
@@ -764,9 +797,9 @@ function ModuleQuestionCard({
             className="h-2 w-full cursor-pointer accent-[#007aff]"
           />
           <div className="mt-3 flex items-center justify-between text-xs font-semibold text-[#6e6e73]">
-            <span>{question.low}</span>
+            <span>{isZh ? question.lowZh : question.low}</span>
             <span className="rounded-full bg-[#f5f5f7] px-3 py-1 text-[#1d1d1f] ring-1 ring-black/5">{answer}/10</span>
-            <span>{question.high}</span>
+            <span>{isZh ? question.highZh : question.high}</span>
           </div>
         </div>
       ) : null}
@@ -776,7 +809,7 @@ function ModuleQuestionCard({
           value={typeof answer === "string" ? answer : ""}
           onChange={(event) => updateAnswer(question.id, event.target.value)}
           rows={3}
-          placeholder="Optional reflection"
+          placeholder={isZh ? "可選反思" : "Optional reflection"}
           className="mt-4 w-full resize-none rounded-[1rem] border border-black/10 bg-[#f5f5f7] p-3 text-sm outline-none transition focus:border-[#007aff] focus:ring-2 focus:ring-[#007aff]/20"
         />
       ) : null}
@@ -793,26 +826,30 @@ function WellbeingScoreCard({
   scores: ReturnType<typeof calculateScores>;
   status: ReturnType<typeof getReadinessStatus>;
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const statusText = getLocalizedStatus(status, isZh);
+
   return (
-    <Panel step="3" title="Generate Wellbeing Intelligence">
+    <Panel step="3" title={isZh ? "生成福祉智能分析" : "Generate Wellbeing Intelligence"}>
       <div className="grid gap-5 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
         <div className="relative grid aspect-square max-h-72 place-items-center rounded-full bg-[conic-gradient(#34c759_0_var(--score),#e5e5ea_var(--score)_100%)] p-4" style={{ "--score": `${scores.overall}%` } as React.CSSProperties}>
           <div className="grid size-full place-items-center rounded-full bg-white text-center">
             <div>
-              <p className="text-sm font-semibold text-[#6e6e73]">HumanOS Wellbeing Readiness Score</p>
+              <p className="text-sm font-semibold text-[#6e6e73]">{isZh ? "HumanOS 福祉準備度分數" : "HumanOS Wellbeing Readiness Score"}</p>
               <p className="mt-2 text-6xl font-semibold">{scores.overall}</p>
-              <p className={`mt-2 text-sm font-semibold ${status.color}`}>{status.label}</p>
+              <p className={`mt-2 text-sm font-semibold ${status.color}`}>{statusText.label}</p>
             </div>
           </div>
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#007aff]">{generated ? "Generated intelligence" : "Preview intelligence"}</p>
-          <h2 className="mt-3 text-4xl font-semibold leading-none">{status.headline}</h2>
-          <p className="mt-4 text-base leading-7 text-[#6e6e73]">{status.body}</p>
+          <p className="text-sm font-semibold text-[#007aff]">{generated ? isZh ? "已生成分析" : "Generated intelligence" : isZh ? "預覽分析" : "Preview intelligence"}</p>
+          <h2 className="mt-3 text-4xl font-semibold leading-none">{statusText.headline}</h2>
+          <p className="mt-4 text-base leading-7 text-[#6e6e73]">{statusText.body}</p>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
-            <MiniMetric label="Support Priority" value={scores.supportPriority} />
-            <MiniMetric label="Recovery Gap" value={`${scores.recoveryGap}`} />
-            <MiniMetric label="Watch Zone" value={scores.overall < 60 ? "Active" : "Monitor"} />
+            <MiniMetric label={isZh ? "支援優先級" : "Support Priority"} value={isZh ? localizePriority(scores.supportPriority) : scores.supportPriority} />
+            <MiniMetric label={isZh ? "恢復缺口" : "Recovery Gap"} value={`${scores.recoveryGap}`} />
+            <MiniMetric label={isZh ? "觀察區" : "Watch Zone"} value={scores.overall < 60 ? isZh ? "啟動" : "Active" : isZh ? "監測" : "Monitor"} />
           </div>
         </div>
       </div>
@@ -831,35 +868,39 @@ function PersonalDashboard({
   sleepStressState: ReturnType<typeof getSleepStressState>;
   trendData: Array<Record<string, number | string>>;
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
   const radarData = [
-    { dimension: "Stress Regulation", value: scores.stressRegulation },
-    { dimension: "Sleep Recovery", value: scores.sleepRecovery },
-    { dimension: "Focus Readiness", value: scores.focusReadiness },
-    { dimension: "Workload Balance", value: scores.workloadBalance },
-    { dimension: "Mood Stability", value: scores.moodStability },
-    { dimension: "Vitality", value: scores.vitality },
+    { dimension: isZh ? "壓力調節" : "Stress Regulation", value: scores.stressRegulation },
+    { dimension: isZh ? "睡眠恢復" : "Sleep Recovery", value: scores.sleepRecovery },
+    { dimension: isZh ? "專注準備度" : "Focus Readiness", value: scores.focusReadiness },
+    { dimension: isZh ? "工作量平衡" : "Workload Balance", value: scores.workloadBalance },
+    { dimension: isZh ? "情緒穩定" : "Mood Stability", value: scores.moodStability },
+    { dimension: isZh ? "活力" : "Vitality", value: scores.vitality },
   ];
 
   return (
-    <Panel step="4" title="Personal Dashboard Charts">
+    <Panel step="4" title={isZh ? "個人儀表板圖表" : "Personal Dashboard Charts"}>
       <div className="grid gap-5 xl:grid-cols-2">
-        <ChartCard title="Wellbeing Radar Chart">
+        <ChartCard title={isZh ? "福祉雷達圖" : "Wellbeing Radar Chart"}>
           <PersonalRadarChart data={radarData} />
         </ChartCard>
-        <ChartCard title="7-Day Trend Line Chart">
+        <ChartCard title={isZh ? "7 日趨勢圖" : "7-Day Trend Line Chart"}>
           <TrendLineChart data={trendData} />
         </ChartCard>
-        <ChartCard title="Burnout Awareness Matrix">
+        <ChartCard title={isZh ? "倦怠 Awareness 矩陣" : "Burnout Awareness Matrix"}>
           <BurnoutMatrix scores={scores} />
         </ChartCard>
         <SleepStressInsightCard sleepStressState={sleepStressState} />
       </div>
       <div className="mt-5 rounded-[1.5rem] bg-[#eaf5ff] p-5">
-        <p className="text-sm font-semibold text-[#007aff]">HumanOS Wellbeing Profile Summary</p>
+        <p className="text-sm font-semibold text-[#007aff]">{isZh ? "HumanOS 福祉 Profile 摘要" : "HumanOS Wellbeing Profile Summary"}</p>
         <p className="mt-3 text-base leading-7 text-[#1d1d1f]">
           {generated
-            ? `Your profile suggests ${scores.workloadBalance < 55 ? "elevated workload pressure" : "manageable workload pressure"} with ${scores.sleepRecovery < 60 ? "reduced recovery" : "stable recovery"}. The strongest signal is ${scores.recoveryGap > 40 ? "a recovery gap" : "a stable pattern"}: sleep quality and energy are ${scores.sleepRecovery < 60 ? "lower" : "holding"} while workload demand remains ${scores.workloadBalance < 60 ? "high" : "moderate"}.`
-            : "Generate the demo to see a personalized wellbeing profile summary."}
+            ? isZh
+              ? `你的 profile 顯示目前${scores.workloadBalance < 55 ? "工作量壓力偏高" : "工作量壓力仍可管理"}，同時${scores.sleepRecovery < 60 ? "恢復能力偏低" : "恢復狀態穩定"}。最明顯訊號係${scores.recoveryGap > 40 ? "恢復缺口" : "整體穩定模式"}：睡眠質素同能量${scores.sleepRecovery < 60 ? "較低" : "仍然守住"}，而工作/學習需求保持在${scores.workloadBalance < 60 ? "偏高" : "中等"}水平。`
+              : `Your profile suggests ${scores.workloadBalance < 55 ? "elevated workload pressure" : "manageable workload pressure"} with ${scores.sleepRecovery < 60 ? "reduced recovery" : "stable recovery"}. The strongest signal is ${scores.recoveryGap > 40 ? "a recovery gap" : "a stable pattern"}: sleep quality and energy are ${scores.sleepRecovery < 60 ? "lower" : "holding"} while workload demand remains ${scores.workloadBalance < 60 ? "high" : "moderate"}.`
+            : isZh ? "生成示範後，這裡會顯示個人化福祉 profile 摘要。" : "Generate the demo to see a personalized wellbeing profile summary."}
         </p>
       </div>
     </Panel>
@@ -877,20 +918,46 @@ function ProfessionalAIInsight({
   scores: ReturnType<typeof calculateScores>;
   sleepStressState: ReturnType<typeof getSleepStressState>;
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const sleepStressText = getLocalizedSleepStress(sleepStressState, isZh);
   const microActions = [
-    "5-minute breathing reset before high-demand tasks",
-    "25-minute focus sprint with a single task target",
-    scores.sleepRecovery < 60 ? "Sleep wind-down reminder 45 minutes before bedtime" : "10-minute movement reset",
+    isZh ? "高需求任務前做 5 分鐘呼吸 reset" : "5-minute breathing reset before high-demand tasks",
+    isZh ? "25 分鐘單一任務專注衝刺" : "25-minute focus sprint with a single task target",
+    scores.sleepRecovery < 60
+      ? isZh ? "睡前 45 分鐘啟動睡眠放鬆提醒" : "Sleep wind-down reminder 45 minutes before bedtime"
+      : isZh ? "10 分鐘活動 reset" : "10-minute movement reset",
   ];
 
   return (
-    <Panel step="5" title="Professional AI Insight">
+    <Panel step="5" title={isZh ? "專業 AI 洞察" : "Professional AI Insight"}>
       <div className="grid gap-4">
-        <InsightRow title="Pattern Summary" body={`Your current pattern shows ${scores.workloadBalance < 60 ? "high cognitive demand" : "moderate cognitive demand"}, ${scores.moodStability < 60 ? "elevated emotional load" : "manageable emotional load"}, and ${scores.sleepRecovery < 60 ? "reduced sleep recovery" : "stable sleep recovery"}.`} />
-        <InsightRow title="Possible Driver" body={`The main driver appears to be ${scores.workloadBalance < scores.motivationVitality ? "time pressure and insufficient recovery" : "energy and recovery fluctuation"} rather than a single motivation issue.`} />
-        <InsightRow title="Support Priority" body={`Focus on ${sleepStressState.title.toLowerCase()} and workload structuring before adding new productivity goals.`} />
+        <InsightRow
+          title={isZh ? "模式摘要" : "Pattern Summary"}
+          body={
+            isZh
+              ? `目前模式顯示${scores.workloadBalance < 60 ? "認知需求偏高" : "認知需求中等"}、${scores.moodStability < 60 ? "情緒負荷偏高" : "情緒負荷可管理"}，以及${scores.sleepRecovery < 60 ? "睡眠恢復偏低" : "睡眠恢復穩定"}。`
+              : `Your current pattern shows ${scores.workloadBalance < 60 ? "high cognitive demand" : "moderate cognitive demand"}, ${scores.moodStability < 60 ? "elevated emotional load" : "manageable emotional load"}, and ${scores.sleepRecovery < 60 ? "reduced sleep recovery" : "stable sleep recovery"}.`
+          }
+        />
+        <InsightRow
+          title={isZh ? "可能成因" : "Possible Driver"}
+          body={
+            isZh
+              ? `主要成因較可能係${scores.workloadBalance < scores.motivationVitality ? "時間壓力同恢復不足" : "能量與恢復波動"}，而唔係單一動力問題。`
+              : `The main driver appears to be ${scores.workloadBalance < scores.motivationVitality ? "time pressure and insufficient recovery" : "energy and recovery fluctuation"} rather than a single motivation issue.`
+          }
+        />
+        <InsightRow
+          title={isZh ? "支援優先次序" : "Support Priority"}
+          body={
+            isZh
+              ? `在增加新 productivity 目標前，先處理「${sleepStressText.title}」同工作/學習量結構。`
+              : `Focus on ${sleepStressState.title.toLowerCase()} and workload structuring before adding new productivity goals.`
+          }
+        />
         <div className="rounded-[1.35rem] bg-[#f5f5f7] p-4">
-          <p className="font-semibold">3 Micro-Actions</p>
+          <p className="font-semibold">{isZh ? "3 個微行動" : "3 Micro-Actions"}</p>
           <div className="mt-3 grid gap-3">
             {microActions.map((action) => (
               <div key={action} className="flex gap-3 rounded-[1rem] bg-white p-3 text-sm font-semibold leading-6 ring-1 ring-black/5">
@@ -900,12 +967,14 @@ function ProfessionalAIInsight({
             ))}
           </div>
         </div>
-        <InsightRow title="Resource Recommendation" body={scenario.resource} />
+        <InsightRow title={isZh ? "資源建議" : "Resource Recommendation"} body={isZh ? scenario.resourceZh : scenario.resource} />
         <div className="flex gap-3 rounded-[1.35rem] bg-[#fff4df] p-4 text-sm leading-7 text-[#1d1d1f]">
           <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#b25000]" aria-hidden="true" />
-          HumanOS provides general wellbeing awareness and support suggestions only. It does not provide medical diagnosis or clinical treatment.
+          {isZh
+            ? "HumanOS 只提供一般福祉 awareness 及支援建議，不提供醫療診斷或臨床治療。"
+            : "HumanOS provides general wellbeing awareness and support suggestions only. It does not provide medical diagnosis or clinical treatment."}
         </div>
-        {!generated ? <p className="text-sm font-semibold text-[#6e6e73]">Click Generate Wellbeing Intelligence to refresh this card with your latest inputs.</p> : null}
+        {!generated ? <p className="text-sm font-semibold text-[#6e6e73]">{isZh ? "按「生成福祉智能分析」後，這張卡會用最新輸入刷新。" : "Click Generate Wellbeing Intelligence to refresh this card with your latest inputs."}</p> : null}
       </div>
     </Panel>
   );
@@ -920,16 +989,18 @@ function InstitutionDashboardPreview({
   scenario: (typeof scenarios)[number];
   scores: ReturnType<typeof calculateScores>;
 }) {
-  const highWorkloadGroup = scenario.key === "student" ? "Year 3" : scenario.key === "hotel" ? "Front Desk" : "Group B";
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const highWorkloadGroup = scenario.key === "student" ? (isZh ? "Year 3 學生" : "Year 3") : scenario.key === "hotel" ? (isZh ? "Front Desk 團隊" : "Front Desk") : "Group B";
 
   return (
-    <Panel step="6" title="Anonymous Institution Dashboard" id="institution-dashboard">
+    <Panel step="6" title={isZh ? "匿名機構儀表板" : "Anonymous Institution Dashboard"} id="institution-dashboard">
       <div className="grid gap-3 md:grid-cols-5">
-        <MiniMetric label="Participation rate" value="72%" />
-        <MiniMetric label="Stress trend" value="+14%" />
-        <MiniMetric label="Low sleep recovery" value="38%" />
-        <MiniMetric label="High workload group" value={highWorkloadGroup} />
-        <MiniMetric label="Suggested campaign" value={scenario.campaign} />
+        <MiniMetric label={isZh ? "參與率" : "Participation rate"} value="72%" />
+        <MiniMetric label={isZh ? "壓力趨勢" : "Stress trend"} value="+14%" />
+        <MiniMetric label={isZh ? "低睡眠恢復" : "Low sleep recovery"} value="38%" />
+        <MiniMetric label={isZh ? "高工作量群組" : "High workload group"} value={highWorkloadGroup} />
+        <MiniMetric label={isZh ? "建議 campaign" : "Suggested campaign"} value={isZh ? scenario.campaignZh : scenario.campaign} />
       </div>
       <div className="mt-5 grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
         <GroupHeatmap heatmap={heatmap} scenario={scenario} />
@@ -937,9 +1008,11 @@ function InstitutionDashboardPreview({
       </div>
       <div className="mt-5 grid gap-5 xl:grid-cols-2">
         <div className="rounded-[1.5rem] bg-[#1d1d1f] p-5 text-white">
-          <p className="text-sm font-semibold text-[#5ac8fa]">AI Institutional Insight</p>
+          <p className="text-sm font-semibold text-[#5ac8fa]">{isZh ? "AI 機構洞察" : "AI Institutional Insight"}</p>
           <p className="mt-4 text-sm leading-7 text-white/76">
-            This week&apos;s anonymous group trends suggest a recovery gap among {scenario.prioritySubject}. Stress and workload rose together while sleep recovery declined. HumanOS recommends a short support campaign focused on sleep routines, planning, and low-pressure check-ins.
+            {isZh
+              ? `本週匿名群組趨勢顯示 ${scenario.prioritySubjectZh} 出現恢復缺口。壓力與工作/學習量同步上升，而睡眠恢復下降。HumanOS 建議推出短期支援 campaign，聚焦睡眠節奏、規劃同低壓 check-in。`
+              : `This week's anonymous group trends suggest a recovery gap among ${scenario.prioritySubject}. Stress and workload rose together while sleep recovery declined. HumanOS recommends a short support campaign focused on sleep routines, planning, and low-pressure check-ins.`}
           </p>
         </div>
         <MonthlyReportPreview scenario={scenario} scores={scores} />
@@ -949,6 +1022,8 @@ function InstitutionDashboardPreview({
 }
 
 function ResearchEvidenceSection() {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
   const highlighted = recognizedQuestionnaires.filter((item) =>
     [
       "WHO-5 Well-Being Index",
@@ -966,12 +1041,14 @@ function ResearchEvidenceSection() {
     <section className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-sm font-semibold text-[#007aff]">Research Evidence</p>
+          <p className="text-sm font-semibold text-[#007aff]">{isZh ? "研究依據" : "Research Evidence"}</p>
           <h2 className="mt-4 text-[clamp(2.5rem,6vw,5.6rem)] font-semibold leading-[0.98] tracking-normal">
-            Recognized questionnaires become HumanOS intelligence
+            {isZh ? "國際認可問卷框架，變成 HumanOS 智能訊號" : "Recognized questionnaires become HumanOS intelligence"}
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[#6e6e73]">
-            The assessment engine references recognized wellbeing, stress, burnout, workplace, and team-safety frameworks, but presents only awareness and support guidance.
+            {isZh
+              ? "Assessment engine 會參考福祉、壓力、倦怠、職場心理社會風險及團隊安全感等框架，但只顯示 awareness、趨勢同支援建議。"
+              : "The assessment engine references recognized wellbeing, stress, burnout, workplace, and team-safety frameworks, but presents only awareness and support guidance."}
           </p>
         </div>
         <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -979,7 +1056,7 @@ function ResearchEvidenceSection() {
             <div key={item.name} className="rounded-[1.5rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
               <p className="text-lg font-semibold leading-tight">{item.name}</p>
               <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#007aff]">{item.humanOSUse}</p>
-              <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{item.use}</p>
+              <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{isZh ? item.useZh : item.use}</p>
             </div>
           ))}
         </div>
@@ -993,19 +1070,19 @@ function ResearchEvidenceSection() {
               className="rounded-[1.6rem] bg-[#f5f5f7] p-6 ring-1 ring-black/5 transition hover:-translate-y-1 hover:bg-white hover:shadow-lg"
             >
               <BookOpenCheck className="size-7 text-[#007aff]" aria-hidden="true" />
-              <h3 className="mt-6 text-2xl font-semibold leading-tight">{card.title}</h3>
+              <h3 className="mt-6 text-2xl font-semibold leading-tight">{isZh ? card.titleZh : card.title}</h3>
               <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-[#6e6e73]">{card.source}</p>
-              <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{card.copy}</p>
+              <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{isZh ? card.copyZh : card.copy}</p>
             </a>
           ))}
         </div>
         <div className="mt-8 rounded-[1.5rem] bg-[#fff4df] p-5 text-sm leading-7 text-[#1d1d1f] ring-1 ring-black/5">
-          <p className="font-semibold">HumanOS safety rules</p>
+          <p className="font-semibold">{isZh ? "HumanOS 安全規則" : "HumanOS safety rules"}</p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {assessmentSafetyPrinciples.map((principle) => (
               <div key={principle} className="flex gap-2">
                 <ShieldCheck className="mt-0.5 size-4 shrink-0 text-[#b25000]" aria-hidden="true" />
-                <span>{principle}</span>
+                <span>{isZh ? localizeSafetyPrinciple(principle) : principle}</span>
               </div>
             ))}
           </div>
@@ -1016,37 +1093,45 @@ function ResearchEvidenceSection() {
 }
 
 function PrivacyBoundary() {
-  const canSee = [
-    "Anonymous group trends",
-    "Participation rate",
-    "Aggregated stress, sleep, focus, workload and motivation patterns",
-    "Suggested support campaigns",
-    "Monthly wellbeing reports",
-  ];
-  const cannotSee = [
-    "Personal journals",
-    "Private AI conversations",
-    "Individual check-in answers",
-    "Identifiable wellbeing reports",
-    "Personal emotional reflections",
-  ];
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const canSee = isZh
+    ? ["匿名群組趨勢", "參與率", "壓力、睡眠、專注、工作量及動力的聚合模式", "建議支援 campaign", "月度福祉報告"]
+    : [
+        "Anonymous group trends",
+        "Participation rate",
+        "Aggregated stress, sleep, focus, workload and motivation patterns",
+        "Suggested support campaigns",
+        "Monthly wellbeing reports",
+      ];
+  const cannotSee = isZh
+    ? ["個人日記", "私人 AI 對話", "個人 check-in 答案", "可識別個人福祉報告", "個人情緒反思"]
+    : [
+        "Personal journals",
+        "Private AI conversations",
+        "Individual check-in answers",
+        "Identifiable wellbeing reports",
+        "Personal emotional reflections",
+      ];
 
   return (
     <section className="bg-[#1d1d1f] py-20 text-white sm:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="text-sm font-semibold text-[#5ac8fa]">Privacy Boundary</p>
+          <p className="text-sm font-semibold text-[#5ac8fa]">{isZh ? "私隱邊界" : "Privacy Boundary"}</p>
           <h2 className="mt-4 text-[clamp(2.5rem,6vw,5.6rem)] font-semibold leading-[0.98] tracking-normal">
-            Anonymous institutional insight, private individual data.
+            {isZh ? "機構只看匿名洞察，個人資料保持私密。" : "Anonymous institutional insight, private individual data."}
           </h2>
         </div>
         <div className="mt-14 grid gap-5 lg:grid-cols-2">
-          <PrivacyColumn title="What institutions can see" items={canSee} positive />
-          <PrivacyColumn title="What institutions cannot see" items={cannotSee} />
+          <PrivacyColumn title={isZh ? "機構可以看到" : "What institutions can see"} items={canSee} positive />
+          <PrivacyColumn title={isZh ? "機構不可以看到" : "What institutions cannot see"} items={cannotSee} />
         </div>
         <div className="mt-8 flex gap-3 rounded-[1.5rem] bg-white/[0.08] p-5 text-sm leading-7 text-white/82 ring-1 ring-white/10">
           <ShieldCheck className="mt-0.5 size-5 shrink-0 text-[#34c759]" aria-hidden="true" />
-          HumanOS is privacy-first. Institutions receive anonymous, aggregated insights only. Individual users keep control of their private wellbeing data.
+          {isZh
+            ? "HumanOS 以私隱優先設計。機構只收到匿名、聚合洞察；個人用戶保留自己私人福祉資料的控制權。"
+            : "HumanOS is privacy-first. Institutions receive anonymous, aggregated insights only. Individual users keep control of their private wellbeing data."}
         </div>
       </div>
     </section>
@@ -1054,26 +1139,29 @@ function PrivacyBoundary() {
 }
 
 function DemoCTA() {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-5xl px-5 text-center lg:px-8">
-        <p className="text-sm font-semibold text-[#007aff]">Pilot HumanOS</p>
+        <p className="text-sm font-semibold text-[#007aff]">{isZh ? "試點 HumanOS" : "Pilot HumanOS"}</p>
         <h2 className="mt-4 text-[clamp(2.6rem,6vw,5.5rem)] font-semibold leading-none tracking-normal">
-          Ready to pilot HumanOS?
+          {isZh ? "準備開始 HumanOS 試點？" : "Ready to pilot HumanOS?"}
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[#6e6e73]">
-          Start with a school, university, hotel team, or organization-wide wellbeing pilot.
+          {isZh ? "可以由學校、大學、酒店團隊，或者整個機構福祉試點開始。" : "Start with a school, university, hotel team, or organization-wide wellbeing pilot."}
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Link href="/contact" className="inline-flex items-center justify-center gap-2 rounded-full bg-[#007aff] px-7 py-4 text-base font-semibold text-white shadow-[0_18px_40px_rgba(0,122,255,0.25)] transition hover:bg-[#0066d6]">
-            Book a Demo
+            {isZh ? "預約 Demo" : "Book a Demo"}
             <ArrowRight className="size-5" aria-hidden="true" />
           </Link>
           <Link href="/contact" className="inline-flex items-center justify-center rounded-full bg-[#f5f5f7] px-7 py-4 text-base font-semibold text-[#1d1d1f] ring-1 ring-black/5 transition hover:bg-white hover:shadow-md">
-            Contact Us
+            {isZh ? "聯絡我們" : "Contact Us"}
           </Link>
           <Link href="/organizations" className="inline-flex items-center justify-center rounded-full bg-[#1d1d1f] px-7 py-4 text-base font-semibold text-white transition hover:bg-black">
-            View Institution Page
+            {isZh ? "查看機構方案" : "View Institution Page"}
           </Link>
         </div>
       </div>
@@ -1136,39 +1224,45 @@ function TrendLineChart({ data }: { data: Array<Record<string, number | string>>
 }
 
 function BurnoutMatrix({ scores }: { scores: ReturnType<typeof calculateScores> }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
   const x = clamp(100 - scores.workloadBalance, 5, 95);
   const y = clamp(100 - scores.sleepRecovery, 5, 95);
 
   return (
     <div className="relative h-72 overflow-hidden rounded-[1.25rem] bg-[#f5f5f7] ring-1 ring-black/5">
       <div className="grid h-full grid-cols-2 grid-rows-2 text-xs font-semibold text-[#6e6e73]">
-        <div className="border-b border-r border-black/5 p-3">Stable Zone</div>
-        <div className="border-b border-black/5 p-3">Productive Pressure</div>
-        <div className="border-r border-black/5 p-3">Low Energy</div>
-        <div className="p-3">Burnout Awareness Zone</div>
+        <div className="border-b border-r border-black/5 p-3">{isZh ? "穩定區" : "Stable Zone"}</div>
+        <div className="border-b border-black/5 p-3">{isZh ? "有效壓力區" : "Productive Pressure"}</div>
+        <div className="border-r border-black/5 p-3">{isZh ? "低能量區" : "Low Energy"}</div>
+        <div className="p-3">{isZh ? "倦怠 Awareness 區" : "Burnout Awareness Zone"}</div>
       </div>
       <div
         className="absolute grid size-5 place-items-center rounded-full bg-[#ff375f] shadow-[0_0_0_8px_rgba(255,55,95,0.16)]"
         style={{ left: `${x}%`, top: `${y}%`, transform: "translate(-50%, -50%)" }}
         aria-label="User point"
       />
-      <p className="absolute bottom-3 left-4 text-xs font-semibold text-[#6e6e73]">Workload Pressure</p>
-      <p className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-semibold text-[#6e6e73]">Recovery Level</p>
+      <p className="absolute bottom-3 left-4 text-xs font-semibold text-[#6e6e73]">{isZh ? "工作量壓力" : "Workload Pressure"}</p>
+      <p className="absolute left-3 top-1/2 -translate-y-1/2 -rotate-90 text-xs font-semibold text-[#6e6e73]">{isZh ? "恢復水平" : "Recovery Level"}</p>
     </div>
   );
 }
 
 function SleepStressInsightCard({ sleepStressState }: { sleepStressState: ReturnType<typeof getSleepStressState> }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const text = getLocalizedSleepStress(sleepStressState, isZh);
+
   return (
     <div className={`rounded-[1.5rem] p-5 ${sleepStressState.bg}`}>
       <div className="flex items-center justify-between gap-4">
         <div>
-          <p className={`text-sm font-semibold ${sleepStressState.color}`}>Sleep-Stress Interaction</p>
-          <h3 className="mt-3 text-3xl font-semibold leading-none">{sleepStressState.title}</h3>
+          <p className={`text-sm font-semibold ${sleepStressState.color}`}>{isZh ? "睡眠與壓力互動" : "Sleep-Stress Interaction"}</p>
+          <h3 className="mt-3 text-3xl font-semibold leading-none">{text.title}</h3>
         </div>
         <Moon className={`size-10 ${sleepStressState.color}`} aria-hidden="true" />
       </div>
-      <p className="mt-5 text-sm leading-7 text-[#6e6e73]">{sleepStressState.body}</p>
+      <p className="mt-5 text-sm leading-7 text-[#6e6e73]">{text.body}</p>
       <div className="mt-5 h-3 overflow-hidden rounded-full bg-white ring-1 ring-black/5">
         <div className={`h-full rounded-full ${sleepStressState.bar}`} style={{ width: sleepStressState.width }} />
       </div>
@@ -1183,6 +1277,8 @@ function GroupHeatmap({
   heatmap: Array<{ group: string; Stress: number; "Sleep Recovery": number; Focus: number; Workload: number; Motivation: number }>;
   scenario: (typeof scenarios)[number];
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
   const columns =
     scenario.key === "hotel"
       ? ["Stress", "Sleep Recovery", "Fatigue", "Workload", "Engagement"]
@@ -1190,15 +1286,15 @@ function GroupHeatmap({
 
   return (
     <div className="overflow-hidden rounded-[1.5rem] bg-[#f5f5f7] p-4 ring-1 ring-black/5">
-      <p className="mb-4 text-sm font-semibold text-[#007aff]">Group Heatmap</p>
+      <p className="mb-4 text-sm font-semibold text-[#007aff]">{isZh ? "群組熱點圖" : "Group Heatmap"}</p>
       <div className="grid min-w-[620px] gap-2" style={{ gridTemplateColumns: `140px repeat(${columns.length}, 1fr)` }}>
         <div />
         {columns.map((column) => (
-          <div key={column} className="text-xs font-semibold text-[#6e6e73]">{column}</div>
+          <div key={column} className="text-xs font-semibold text-[#6e6e73]">{isZh ? localizeHeatColumn(column) : column}</div>
         ))}
-        {heatmap.map((row) => (
+        {heatmap.map((row, index) => (
           <div key={row.group} className="contents">
-            <div className="py-2 text-sm font-semibold">{row.group}</div>
+            <div className="py-2 text-sm font-semibold">{isZh ? scenario.groupZh[index] : row.group}</div>
             {columns.map((column) => {
               const normalizedColumn = column === "Fatigue" ? "Stress" : column === "Engagement" ? "Motivation" : column;
               const value = row[normalizedColumn as keyof typeof row] as number;
@@ -1216,22 +1312,24 @@ function GroupHeatmap({
 }
 
 function SupportPriorityQueue({ scenario }: { scenario: (typeof scenarios)[number] }) {
-  const group = scenario.prioritySubject;
-  const second = scenario.groups[1];
-  const fourth = scenario.groups[3];
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+  const group = isZh ? scenario.prioritySubjectZh : scenario.prioritySubject;
+  const second = isZh ? scenario.groupZh[1] : scenario.groups[1];
+  const fourth = isZh ? scenario.groupZh[3] : scenario.groups[3];
   const items = [
-    `${group} show increased workload pressure and lower sleep recovery.`,
-    `${second} show declining motivation but stable stress.`,
-    `${fourth} show stable wellbeing but lower participation.`,
+    isZh ? `${group} 顯示工作/學習量壓力上升，睡眠恢復下降。` : `${group} show increased workload pressure and lower sleep recovery.`,
+    isZh ? `${second} 顯示動力下降，但壓力仍然穩定。` : `${second} show declining motivation but stable stress.`,
+    isZh ? `${fourth} 福祉狀態穩定，但參與率較低。` : `${fourth} show stable wellbeing but lower participation.`,
   ];
 
   return (
     <div className="rounded-[1.5rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
-      <p className="text-sm font-semibold text-[#007aff]">Support Priority Queue</p>
+      <p className="text-sm font-semibold text-[#007aff]">{isZh ? "支援優先隊列" : "Support Priority Queue"}</p>
       <div className="mt-4 grid gap-3">
         {items.map((item, index) => (
           <div key={item} className="rounded-[1rem] bg-white p-4 ring-1 ring-black/5">
-            <p className="text-xs font-semibold text-[#ff375f]">Priority {index + 1}</p>
+            <p className="text-xs font-semibold text-[#ff375f]">{isZh ? `優先 ${index + 1}` : `Priority ${index + 1}`}</p>
             <p className="mt-2 text-sm font-semibold leading-6">{item}</p>
           </div>
         ))}
@@ -1247,19 +1345,21 @@ function MonthlyReportPreview({
   scenario: (typeof scenarios)[number];
   scores: ReturnType<typeof calculateScores>;
 }) {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
   const rows = [
-    ["Key trend", scores.sleepRecovery < 60 ? "Sleep recovery decreased across the priority group." : "Wellbeing signals remain stable with mild workload pressure."],
-    ["Possible driver", "Time pressure and recovery consistency appear to be the most relevant drivers."],
-    ["Suggested action", scenario.campaign],
-    ["Follow-up metric", "Sleep recovery, participation, and workload pressure over the next 14 days."],
-    ["Privacy note", "No individual journals, check-in answers, private AI chats, or identifiable reports are shown."],
+    [isZh ? "主要趨勢" : "Key trend", scores.sleepRecovery < 60 ? isZh ? "優先群組的睡眠恢復下降。" : "Sleep recovery decreased across the priority group." : isZh ? "福祉訊號整體穩定，但有輕微工作/學習量壓力。" : "Wellbeing signals remain stable with mild workload pressure."],
+    [isZh ? "可能成因" : "Possible driver", isZh ? "時間壓力與恢復規律似乎是最相關因素。" : "Time pressure and recovery consistency appear to be the most relevant drivers."],
+    [isZh ? "建議行動" : "Suggested action", isZh ? scenario.campaignZh : scenario.campaign],
+    [isZh ? "跟進指標" : "Follow-up metric", isZh ? "未來 14 日追蹤睡眠恢復、參與率及工作/學習量壓力。" : "Sleep recovery, participation, and workload pressure over the next 14 days."],
+    [isZh ? "私隱備註" : "Privacy note", isZh ? "不顯示個人日記、check-in 答案、私人 AI 對話或可識別報告。" : "No individual journals, check-in answers, private AI chats, or identifiable reports are shown."],
   ];
 
   return (
     <div className="rounded-[1.5rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
       <p className="flex items-center gap-2 text-sm font-semibold text-[#007aff]">
         <FileText className="size-4" aria-hidden="true" />
-        Monthly Report Preview
+        {isZh ? "月度報告預覽" : "Monthly Report Preview"}
       </p>
       <div className="mt-4 grid gap-3">
         {rows.map(([label, body]) => (
@@ -1454,6 +1554,54 @@ function getReadinessStatus(score: number) {
   };
 }
 
+function getLocalizedStatus(status: ReturnType<typeof getReadinessStatus>, isZh: boolean) {
+  if (!isZh) return status;
+
+  const map: Record<string, { label: string; headline: string; body: string }> = {
+    "Needs Support": {
+      label: "需要支援",
+      headline: "已進入支援優先狀態。",
+      body: "多個福祉訊號顯示，應先處理恢復與支援規劃，再增加額外生產力壓力。",
+    },
+    "Watch Zone": {
+      label: "觀察區",
+      headline: "偵測到觀察區模式。",
+      body: "這不是診斷結果，而是提示睡眠、工作/學習量及情緒壓力需要更早被監測與支援。",
+    },
+    Stable: {
+      label: "穩定",
+      headline: "整體穩定，但仍有改善機會。",
+      body: "訊號大致穩定，可集中改善恢復、工作/學習量規劃及專注準備度。",
+    },
+    Strong: {
+      label: "良好",
+      headline: "恢復與準備度 profile 良好。",
+      body: "目前訊號顯示恢復力強、情緒壓力穩定、專注準備度良好。建議保持現有節奏並持續觀察變化。",
+    },
+  };
+
+  return { ...status, ...(map[status.label] ?? {}) };
+}
+
+function localizePriority(value: string) {
+  if (value === "High") return "高";
+  if (value === "Medium") return "中";
+  return "低";
+}
+
+function localizeHeatColumn(column: string) {
+  const map: Record<string, string> = {
+    Stress: "壓力",
+    "Sleep Recovery": "睡眠恢復",
+    Fatigue: "疲勞",
+    Focus: "專注",
+    Workload: "工作量",
+    Motivation: "動力",
+    Engagement: "投入度",
+  };
+  return map[column] ?? column;
+}
+
 function getSleepStressState(sleepRecovery: number, stressRegulation: number) {
   const stress = 100 - stressRegulation;
   if (sleepRecovery < 58 && stress > 52) {
@@ -1486,6 +1634,51 @@ function getSleepStressState(sleepRecovery: number, stressRegulation: number) {
   };
 }
 
+function getLocalizedSleepStress(
+  sleepStressState: ReturnType<typeof getSleepStressState>,
+  isZh: boolean,
+) {
+  if (!isZh) {
+    return {
+      title: sleepStressState.title,
+      body: sleepStressState.body,
+    };
+  }
+
+  if (sleepStressState.title === "Recovery Gap") {
+    return {
+      title: "恢復缺口",
+      body: "睡眠恢復偏低，同時壓力偏高。建議先處理恢復，再增加新的表現目標。",
+    };
+  }
+  if (sleepStressState.title === "Resilient Pressure") {
+    return {
+      title: "有韌性的壓力",
+      body: "壓力存在，但睡眠恢復仍有保護作用。建議保持恢復節奏穩定。",
+    };
+  }
+  return {
+    title: "平衡模式",
+    body: "睡眠與壓力訊號大致平衡。建議繼續觀察一週內的變化。",
+  };
+}
+
+function localizeSafetyPrinciple(principle: string) {
+  const map: Record<string, string> = {
+    "Do not show diagnostic labels such as depressed, anxious, or clinically burned out.":
+      "不顯示 depression、anxiety、clinical burnout 等診斷標籤。",
+    "Show awareness signals, trend movement, support suggestions, and referral guidance only.":
+      "只顯示 awareness 訊號、趨勢變化、支援建議及轉介提示。",
+    "Keep PHQ-9 and GAD-7 style content out of institutional dashboards.":
+      "PHQ-9 / GAD-7 類深度內容不進入機構 dashboard。",
+    "Do not copy proprietary questionnaire items directly; create HumanOS-owned items inspired by public concepts.":
+      "不直接複製 proprietary 問卷題目；以公開概念啟發設計 HumanOS 自家題目。",
+    "Suppress small groups and never expose private journals or individual AI conversations to schools or HR.":
+      "隱藏小樣本群組，永不向學校或 HR 顯示私人日記或個人 AI 對話。",
+  };
+  return map[principle] ?? principle;
+}
+
 function heatTone(value: number, column: string) {
   const highIsRisk = column === "Stress" || column === "Workload" || column === "Fatigue";
   const riskValue = highIsRisk ? value : 100 - value;
@@ -1514,9 +1707,11 @@ function useMounted() {
 }
 
 function ChartPlaceholder() {
+  const { locale } = useI18n();
+
   return (
     <div className="flex h-72 items-center justify-center rounded-[1.25rem] bg-white text-sm font-semibold text-[#6e6e73] ring-1 ring-black/5">
-      Loading chart
+      {locale === "zh" ? "載入圖表中" : "Loading chart"}
     </div>
   );
 }
