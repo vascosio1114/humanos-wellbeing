@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Footer, Navbar } from "@/components/humanos/layout";
 import { RechartsTrendPanel } from "@/components/humanos/recharts-panels";
+import { assessmentLibrary, humanOSIndicators } from "@/lib/assessment-library";
 import { useI18n } from "@/lib/i18n";
 
 const studentFlow = [
@@ -202,6 +203,8 @@ export default function StudentsPage() {
         </div>
       </section>
 
+      <StudentAssessmentSection locale={locale} />
+
       <section className="bg-[#1d1d1f] py-20 text-white sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
           <div data-reveal="slide-left">
@@ -255,6 +258,54 @@ export default function StudentsPage() {
       </section>
       <Footer />
     </main>
+  );
+}
+
+function StudentAssessmentSection({ locale }: { locale: "en" | "zh" }) {
+  const studentModule = assessmentLibrary.find((item) => item.name === "Student Module");
+  const studentIndicators = humanOSIndicators.filter((item) =>
+    ["Wellbeing Score", "Stress Index", "Sleep Recovery", "Focus & Motivation", "Work / Study Environment"].includes(item.title),
+  );
+
+  return (
+    <section className="bg-[#f5f5f7] py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div data-reveal="slide-left">
+            <p className="text-sm font-semibold text-[#007aff]">{locale === "zh" ? "學生 Assessment Library" : "Student Assessment Library"}</p>
+            <h2 className="mt-4 text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none tracking-normal">
+              {locale === "zh" ? "學生版唔係心理測驗，係早期支援入口。" : "The student version is not a diagnosis test. It is an early-support layer."}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-[#6e6e73]">
+              {locale === "zh"
+                ? "HumanOS 將學業壓力、睡眠、專注、動力、歸屬感同支援信心轉成學生可理解嘅 daily plan，同時俾學校匿名睇到邊啲群組需要支援。"
+                : "HumanOS converts academic stress, sleep, focus, motivation, belonging, and support confidence into student-friendly daily plans while giving schools anonymous group-level support needs."}
+            </p>
+            {studentModule ? (
+              <div className="mt-6 rounded-[1.5rem] bg-white p-5 ring-1 ring-black/5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#007aff]">{locale === "zh" ? studentModule.cadenceZh : studentModule.cadence}</p>
+                <p className="mt-2 text-xl font-semibold">{locale === "zh" ? studentModule.nameZh : studentModule.name}</p>
+                <p className="mt-3 text-sm leading-7 text-[#6e6e73]">{locale === "zh" ? studentModule.visibilityZh : studentModule.visibility}</p>
+              </div>
+            ) : null}
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {studentIndicators.map((indicator, index) => (
+              <div
+                key={indicator.title}
+                data-reveal={index % 2 === 0 ? "slide-left" : "slide-right"}
+                className="rounded-[1.5rem] bg-white p-5 ring-1 ring-black/5"
+                style={{ transitionDelay: `${index * 80}ms` }}
+              >
+                <p className="text-xl font-semibold">{locale === "zh" ? indicator.titleZh : indicator.title}</p>
+                <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#007aff]">{locale === "zh" ? indicator.basisZh : indicator.basis}</p>
+                <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{locale === "zh" ? indicator.outputZh : indicator.output}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

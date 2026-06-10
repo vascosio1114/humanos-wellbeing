@@ -8,6 +8,7 @@ import {
   BriefcaseBusiness,
   Building2,
   CheckCircle2,
+  ClipboardCheck,
   FileText,
   LockKeyhole,
   Moon,
@@ -28,6 +29,12 @@ import {
   YAxis,
 } from "recharts";
 import { Footer, Navbar } from "@/components/humanos/layout";
+import {
+  assessmentLibrary,
+  assessmentSafetyPrinciples,
+  humanOSIndicators,
+  recognizedQuestionnaires,
+} from "@/lib/assessment-library";
 
 type ScenarioKey = "student" | "hotel" | "admin";
 type FrequencyValue = 0 | 1 | 2 | 3 | 4;
@@ -445,6 +452,7 @@ export default function DemoPage() {
     <main className="min-h-screen overflow-hidden bg-[#f5f5f7] text-[#1d1d1f]">
       <Navbar />
       <DemoHero />
+      <AssessmentLibrarySection />
       <section className="mx-auto grid max-w-7xl gap-6 px-5 py-12 lg:grid-cols-[0.84fr_1.16fr] lg:px-8">
         <div className="grid gap-5">
           <ScenarioSelector scenarioIndex={scenarioIndex} setScenarioIndex={setScenarioIndex} />
@@ -501,7 +509,7 @@ function DemoHero() {
             HumanOS Wellbeing Intelligence Lab
           </h1>
           <p className="mt-7 max-w-2xl text-xl leading-9 text-[#6e6e73]">
-            Experience how a 60-second check-in becomes a personal support plan, a wellbeing profile, and anonymous institutional insight.
+            Experience how a research-informed assessment library becomes a personal support plan, a wellbeing profile, and anonymous institutional insight.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -532,8 +540,8 @@ function DemoHero() {
             <p className="text-sm font-semibold text-white/58">Research-informed intelligence flow</p>
             <div className="mt-6 grid gap-3">
               {[
-                ["Private check-in modules", "01"],
-                ["Dimension scoring", "02"],
+                ["Assessment library", "01"],
+                ["Private check-in modules", "02"],
                 ["Personal support plan", "03"],
                 ["Anonymous institution intelligence", "04"],
               ].map(([label, step]) => (
@@ -544,6 +552,66 @@ function DemoHero() {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AssessmentLibrarySection() {
+  return (
+    <section className="bg-[#f5f5f7] py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+          <div>
+            <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#007aff] shadow-sm ring-1 ring-black/5">
+              <ClipboardCheck className="size-4" aria-hidden="true" />
+              HumanOS Assessment Library
+            </p>
+            <h2 className="mt-6 text-[clamp(2.7rem,5vw,5.4rem)] font-semibold leading-[0.98] tracking-normal">
+              Built on recognized wellbeing frameworks. Expressed as HumanOS signals.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-[#6e6e73]">
+              HumanOS does not copy clinical or proprietary questionnaires. It uses custom, product-friendly items inspired by internationally recognized frameworks, then converts them into awareness, trends, support suggestions, and privacy-safe institutional intelligence.
+            </p>
+            <div className="mt-6 rounded-[1.5rem] bg-[#fff4df] p-5 text-sm leading-7 text-[#1d1d1f] ring-1 ring-black/5">
+              <span className="font-semibold">Boundary:</span> no diagnosis result, no individual institutional report, no private journals shown to schools or HR.
+            </div>
+          </div>
+
+          <div className="grid gap-4">
+            {assessmentLibrary.map((item, index) => (
+              <div key={item.name} className="rounded-[1.7rem] bg-white p-5 shadow-sm ring-1 ring-black/5">
+                <div className="flex flex-wrap items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[#007aff]">{item.cadence}</p>
+                    <h3 className="mt-2 text-2xl font-semibold tracking-normal">{item.name}</h3>
+                  </div>
+                  <span className="grid size-10 place-items-center rounded-full bg-[#f5f5f7] text-sm font-semibold text-[#1d1d1f] ring-1 ring-black/5">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{item.purpose}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {item.outputs.map((output) => (
+                    <span key={output} className="rounded-full bg-[#f5f5f7] px-3 py-1.5 text-xs font-semibold text-[#6e6e73] ring-1 ring-black/5">
+                      {output}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {humanOSIndicators.map((indicator) => (
+            <div key={indicator.title} className="rounded-[1.5rem] bg-white p-5 ring-1 ring-black/5">
+              <p className="text-sm font-semibold text-[#007aff]">{indicator.title}</p>
+              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#6e6e73]">{indicator.basis}</p>
+              <p className="mt-4 text-sm leading-7 text-[#1d1d1f]">{indicator.output}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -881,17 +949,39 @@ function InstitutionDashboardPreview({
 }
 
 function ResearchEvidenceSection() {
+  const highlighted = recognizedQuestionnaires.filter((item) =>
+    [
+      "WHO-5 Well-Being Index",
+      "WEMWBS / SWEMWBS",
+      "PSS-10 Perceived Stress Scale",
+      "Oldenburg Burnout Inventory",
+      "COPSOQ III",
+      "HSE Management Standards Indicator Tool",
+      "UWES Utrecht Work Engagement Scale",
+      "Edmondson Psychological Safety Scale",
+    ].includes(item.name),
+  );
+
   return (
     <section className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-semibold text-[#007aff]">Research Evidence</p>
           <h2 className="mt-4 text-[clamp(2.5rem,6vw,5.6rem)] font-semibold leading-[0.98] tracking-normal">
-            Built around established wellbeing research
+            Recognized questionnaires become HumanOS intelligence
           </h2>
           <p className="mx-auto mt-6 max-w-3xl text-lg leading-8 text-[#6e6e73]">
-            HumanOS uses simplified custom questions inspired by established research frameworks, while staying clearly non-diagnostic.
+            The assessment engine references recognized wellbeing, stress, burnout, workplace, and team-safety frameworks, but presents only awareness and support guidance.
           </p>
+        </div>
+        <div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {highlighted.map((item) => (
+            <div key={item.name} className="rounded-[1.5rem] bg-[#f5f5f7] p-5 ring-1 ring-black/5">
+              <p className="text-lg font-semibold leading-tight">{item.name}</p>
+              <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#007aff]">{item.humanOSUse}</p>
+              <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{item.use}</p>
+            </div>
+          ))}
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {researchCards.map((card) => (
@@ -910,7 +1000,15 @@ function ResearchEvidenceSection() {
           ))}
         </div>
         <div className="mt-8 rounded-[1.5rem] bg-[#fff4df] p-5 text-sm leading-7 text-[#1d1d1f] ring-1 ring-black/5">
-          HumanOS is research-informed, not a clinical assessment or medical device. The demo uses simplified, custom questions inspired by established wellbeing research frameworks.
+          <p className="font-semibold">HumanOS safety rules</p>
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {assessmentSafetyPrinciples.map((principle) => (
+              <div key={principle} className="flex gap-2">
+                <ShieldCheck className="mt-0.5 size-4 shrink-0 text-[#b25000]" aria-hidden="true" />
+                <span>{principle}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

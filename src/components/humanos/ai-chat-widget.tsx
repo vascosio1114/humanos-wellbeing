@@ -22,15 +22,15 @@ type ChatMessage = {
 const quickPrompts = {
   en: [
     "What is HumanOS?",
+    "What assessments does it use?",
     "How does the school pilot work?",
     "How can this help organizations?",
-    "What data stays private?",
   ],
   zh: [
     "HumanOS 係咩？",
+    "用咩問卷框架？",
     "學校點樣用？",
     "點幫機構同博企？",
-    "私隱點保障？",
   ],
 };
 
@@ -68,6 +68,33 @@ function buildReply(input: string, locale: "en" | "zh") {
     return isZh
       ? "HumanOS 嘅核心係 privacy-first：學生或員工嘅私人反思、AI 對話、個人報告唔會俾學校或僱主睇。機構只會見到匿名、分組後嘅趨勢，例如壓力上升、睡眠下降、參與率同活動成效；太細嘅群組會隱藏，減低被辨認風險。"
       : "HumanOS is privacy-first. Private reflections, individual AI chats, and personal reports stay with the user. Institutions only see anonymized group trends such as rising stress, sleep decline, participation, and campaign impact. Small groups are suppressed to reduce identity inference risk.";
+  }
+
+  if (
+    includesAny(text, [
+      "assessment",
+      "questionnaire",
+      "survey",
+      "who-5",
+      "wemwbs",
+      "pss",
+      "phq",
+      "gad",
+      "burnout",
+      "olbi",
+      "mbi",
+      "copsoq",
+      "hse",
+      "uwes",
+      "問卷",
+      "量表",
+      "框架",
+      "倦怠",
+    ])
+  ) {
+    return isZh
+      ? "HumanOS 嘅 assessment library 參考 WHO-5 / WEMWBS 做 Wellbeing Score、PSS-10 做 Stress Index、OLBI / MBI 方向做 Burnout Awareness、COPSOQ / HSE / UWES / Psychological Safety 做 Workplace Module。重點係：用自家非 proprietary 題目，唔展示診斷，只展示 wellbeing awareness、stress trend、support suggestion，同需要時 referral suggestion。"
+      : "HumanOS uses an assessment library inspired by WHO-5 / WEMWBS for Wellbeing Score, PSS-10 for Stress Index, OLBI / MBI-style concepts for Burnout Awareness, and COPSOQ / HSE / UWES / Psychological Safety for workplace intelligence. It uses custom non-proprietary items and shows awareness, trends, support suggestions, and referral suggestions, not diagnosis.";
   }
 
   if (includesAny(text, ["school", "student", "class", "campus", "university", "學生", "學校", "班級", "大學"])) {

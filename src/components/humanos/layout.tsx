@@ -10,6 +10,7 @@ export function Navbar() {
     [t.nav.product, "/demo"],
     [t.nav.students, "/students"],
     [t.nav.organizations, "/organizations"],
+    [locale === "zh" ? "問卷庫" : "Assessments", "/assessment-library"],
     [t.nav.pilot, "/pilot"],
     [t.nav.privacy, "/privacy"],
     [t.nav.technology, "/technology"],
@@ -29,7 +30,7 @@ export function Navbar() {
             </span>
           </span>
         </Link>
-        <div className="hidden items-center gap-6 text-sm font-medium text-[#6e6e73] md:flex">
+        <div className="hidden items-center gap-5 text-sm font-medium text-[#6e6e73] md:flex">
           {navItems.map(([label, href]) => (
             <Link key={href} href={href} className="transition hover:text-[#007aff]">
               {label}

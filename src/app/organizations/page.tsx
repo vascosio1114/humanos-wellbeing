@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Footer, Navbar } from "@/components/humanos/layout";
 import { RechartsTrendPanel } from "@/components/humanos/recharts-panels";
+import { assessmentLibrary, humanOSIndicators, recognizedQuestionnaires } from "@/lib/assessment-library";
 import { useI18n } from "@/lib/i18n";
 
 const casinoUseCases = [
@@ -235,6 +236,8 @@ export default function OrganizationsPage() {
         </div>
       </section>
 
+      <WorkplaceAssessmentSection locale={locale} />
+
       <section id="implementation" className="bg-[#1d1d1f] py-20 text-white sm:py-28">
         <div className="mx-auto max-w-7xl px-5 lg:px-8">
           <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
@@ -321,6 +324,69 @@ export default function OrganizationsPage() {
 
       <Footer />
     </main>
+  );
+}
+
+function WorkplaceAssessmentSection({ locale }: { locale: "en" | "zh" }) {
+  const workplaceModule = assessmentLibrary.find((item) => item.name === "Workplace Module");
+  const workplaceIndicators = humanOSIndicators.filter((item) =>
+    ["Stress Index", "Burnout Awareness", "Sleep Recovery", "Focus & Motivation", "Work / Study Environment"].includes(item.title),
+  );
+  const frameworks = recognizedQuestionnaires.filter((item) =>
+    ["COPSOQ III", "HSE Management Standards Indicator Tool", "UWES Utrecht Work Engagement Scale", "Edmondson Psychological Safety Scale", "Oldenburg Burnout Inventory"].includes(item.name),
+  );
+
+  return (
+    <section className="bg-[#f5f5f7] py-20 sm:py-28">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div data-reveal="slide-left">
+            <p className="text-sm font-semibold text-[#248a3d]">{locale === "zh" ? "Workplace Assessment Library" : "Workplace Assessment Library"}</p>
+            <h2 className="mt-4 text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none tracking-normal">
+              {locale === "zh" ? "HR 需要嘅唔係問卷分數，而係匿名 workforce intelligence。" : "HR does not need raw questionnaire scores. It needs anonymous workforce intelligence."}
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-[#6e6e73]">
+              {locale === "zh"
+                ? "HumanOS 將職場心理社會風險、工作量、支援、角色清晰、投入度同團隊安全感，轉成部門 / 輪班 / 群組層面嘅趨勢。"
+                : "HumanOS converts psychosocial workplace risk, workload, support, role clarity, engagement, and team safety into department, shift, and cohort-level trends."}
+            </p>
+            {workplaceModule ? (
+              <div className="mt-6 rounded-[1.5rem] bg-white p-5 ring-1 ring-black/5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-[#248a3d]">{locale === "zh" ? workplaceModule.cadenceZh : workplaceModule.cadence}</p>
+                <p className="mt-2 text-xl font-semibold">{locale === "zh" ? workplaceModule.nameZh : workplaceModule.name}</p>
+                <p className="mt-3 text-sm leading-7 text-[#6e6e73]">{locale === "zh" ? workplaceModule.visibilityZh : workplaceModule.visibility}</p>
+              </div>
+            ) : null}
+          </div>
+          <div className="grid gap-4">
+            <div className="grid gap-4 md:grid-cols-2">
+              {frameworks.map((item, index) => (
+                <div
+                  key={item.name}
+                  data-reveal={index % 2 === 0 ? "slide-left" : "slide-right"}
+                  className="rounded-[1.5rem] bg-white p-5 ring-1 ring-black/5"
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  <p className="text-lg font-semibold leading-tight">{item.name}</p>
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-wide text-[#248a3d]">{item.humanOSUse}</p>
+                  <p className="mt-4 text-sm leading-7 text-[#6e6e73]">{locale === "zh" ? item.useZh : item.use}</p>
+                </div>
+              ))}
+            </div>
+            <div className="rounded-[1.6rem] bg-[#1d1d1f] p-5 text-white ring-1 ring-black/5">
+              <p className="text-sm font-semibold text-[#5ac8fa]">{locale === "zh" ? "HumanOS workplace indicators" : "HumanOS workplace indicators"}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {workplaceIndicators.map((indicator) => (
+                  <span key={indicator.title} className="rounded-full bg-white/[0.08] px-3 py-1.5 text-xs font-semibold text-white/76 ring-1 ring-white/10">
+                    {locale === "zh" ? indicator.titleZh : indicator.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
