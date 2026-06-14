@@ -433,6 +433,20 @@ const researchCards = [
 ] as const;
 
 export default function DemoPage() {
+  return (
+    <main className="min-h-screen overflow-hidden bg-[#f5f5f7] text-[#1d1d1f]">
+      <Navbar />
+      <DemoLandingHero />
+      <AssessmentLibrarySection />
+      <ResearchEvidenceSection />
+      <PrivacyBoundary />
+      <DemoCTA />
+      <Footer />
+    </main>
+  );
+}
+
+export function DemoSurveyPage() {
   const [scenarioIndex, setScenarioIndex] = useState(0);
   const [activeModule, setActiveModule] = useState(0);
   const [answers, setAnswers] = useState<Record<string, AnswerValue>>(initialAnswers);
@@ -494,6 +508,82 @@ export default function DemoPage() {
       <DemoCTA />
       <Footer />
     </main>
+  );
+}
+
+function DemoLandingHero() {
+  const { locale } = useI18n();
+  const isZh = locale === "zh";
+
+  return (
+    <section className="relative isolate bg-white">
+      <div className="absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_24%_12%,rgba(0,122,255,0.16),transparent_32%),radial-gradient(circle_at_76%_12%,rgba(52,199,89,0.16),transparent_30%),radial-gradient(circle_at_52%_0%,rgba(255,55,95,0.12),transparent_34%)]" />
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-8 lg:py-24">
+        <div>
+          <p className="inline-flex items-center gap-2 rounded-full bg-[#eaf5ff] px-4 py-2 text-sm font-semibold text-[#007aff] shadow-sm ring-1 ring-black/5">
+            <Sparkles className="size-4" aria-hidden="true" />
+            {isZh ? "HumanOS Demo 總覽" : "HumanOS Demo Overview"}
+          </p>
+          <h1 className="mt-6 text-[clamp(3rem,7vw,6.8rem)] font-semibold leading-[0.94] tracking-normal">
+            {isZh ? "先理解 HumanOS，再進入互動 Survey Demo。" : "Understand HumanOS, then enter the interactive survey demo."}
+          </h1>
+          <p className="mt-7 max-w-2xl text-xl leading-9 text-[#6e6e73]">
+            {isZh
+              ? "呢一頁集中介紹 HumanOS 點樣參考專業問卷框架、轉化成福祉訊號、再以匿名方式支援學校同機構決策。真正嘅互動 survey demo 已經拆到獨立頁面，方便展示同分享。"
+              : "This page explains how HumanOS references recognized wellbeing frameworks, turns them into wellbeing signals, and supports anonymous institutional decisions. The interactive survey demo now lives on its own page for cleaner demos and sharing."}
+          </p>
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Link
+              href="/demo/survey"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#007aff] px-6 py-3.5 text-base font-semibold text-white shadow-[0_18px_40px_rgba(0,122,255,0.25)] transition hover:-translate-y-0.5 hover:bg-[#0066d6] focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2"
+            >
+              {isZh ? "開始 Survey Demo" : "Start Survey Demo"}
+              <ArrowRight className="size-5" aria-hidden="true" />
+            </Link>
+            <Link
+              href="/business-plan"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#f5f5f7] px-6 py-3.5 text-base font-semibold text-[#1d1d1f] ring-1 ring-black/5 transition hover:bg-white hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:ring-offset-2"
+            >
+              {isZh ? "查看商業計劃" : "View Business Plan"}
+            </Link>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {(isZh ? ["研究參考", "B2B 優先", "私隱安全", "非診斷"] : ["Research-informed", "B2B-first", "Privacy-safe", "Non-diagnostic"]).map((badge) => (
+              <span key={badge} className="rounded-full bg-[#f5f5f7] px-3 py-1.5 text-xs font-semibold text-[#6e6e73] ring-1 ring-black/5">
+                {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-[2.2rem] bg-[#1d1d1f] p-4 text-white shadow-[0_30px_90px_rgba(0,0,0,0.18)]">
+          <div className="rounded-[1.8rem] bg-white/[0.08] p-5 ring-1 ring-white/10">
+            <p className="text-sm font-semibold text-white/58">{isZh ? "Demo 頁面結構" : "Demo Page Structure"}</p>
+            <div className="mt-6 grid gap-3">
+              {(isZh
+                ? [
+                    ["Demo 總覽", "介紹產品邏輯同研究依據"],
+                    ["Survey Demo", "獨立頁面做互動問卷同結果"],
+                    ["機構洞察", "展示匿名 dashboard 同月報"],
+                  ]
+                : [
+                    ["Demo overview", "Explain product logic and research basis"],
+                    ["Survey demo", "Interactive questionnaire and generated output"],
+                    ["Institution insight", "Anonymous dashboard and monthly report preview"],
+                  ]).map(([title, body], index) => (
+                <div key={title} className="flex gap-4 rounded-[1.3rem] bg-white/[0.08] p-4 ring-1 ring-white/10">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white text-sm font-semibold text-[#1d1d1f]">{index + 1}</span>
+                  <span>
+                    <span className="block text-sm font-semibold text-white/88">{title}</span>
+                    <span className="mt-1 block text-xs leading-5 text-white/54">{body}</span>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
